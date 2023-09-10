@@ -1,5 +1,5 @@
 <?php
-namespace App\Repositories;
+namespace App\Http\Repositories;
 
 use App\Http\Contracts\Repositories\Eloquent;
 use Illuminate\Database\Eloquent\Model;

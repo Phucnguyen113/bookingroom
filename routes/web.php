@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MetaTagController;
+use App\Http\Middleware\AdminAdminLoginedMiddleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +18,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('master');
+});
+Route::get('login', [LoginController::class, 'index'])->name('login');
+Route::post('login', [LoginController::class, 'login']);
+Route::get('logout', [LoginController::class, 'logout']);
+Route::group([
+    'middleware' => ['auth', AdminAdminLoginedMiddleware::class]
+], function () {
+    Route::resource('tags', MetaTagController::class);
 });
