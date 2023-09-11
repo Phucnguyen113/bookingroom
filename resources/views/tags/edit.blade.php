@@ -11,17 +11,18 @@
 @endif
 <div class="card">
     <div class="card card-primary">
-        <form action="{{url('tags')}}" method="POST">
+        <form action="{{url('tags')}}/{{$metaTag->id}}" method="POST">
             @csrf
+            @method('PUT')
             <div class="card-body">
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" name="name" placeholder="Enter name" value="{{old('name')}}">
+                    <input type="text" class="form-control" name="name" placeholder="Enter name" value="{{$metaTag->name}}">
                 </div>
                 <div class="form-group">
                     <label for="content">Content</label><br>
                     <textarea id="summernote" name="content">
-                        {{old('content')}}
+                        {{$metaTag->content}}
                     </textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>

@@ -11,5 +11,6 @@ class MetaTag extends Model
 
     protected $fillable = [
         'name',
+        'content',
     ];
 }

@@ -25,7 +25,7 @@ class LoginController extends Controller
         if ($this->sessionService->login($request)) {
             return redirect('/');
         }
-        return redirect()->prev();
+        return redirect()->back();
     }
 
     public function logout()

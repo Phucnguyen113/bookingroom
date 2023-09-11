@@ -53,15 +53,17 @@ class MetaTagController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $metaTag = $this->metaTagService->getMetaTagById($id);
+        return view('tags.edit', compact('metaTag'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(MetaTagRequest $request, string $id)
     {
-        //
+        $this->metaTagService->update($request, $id);
+        return redirect()->route('tags.index');
     }
 
     /**
@@ -69,6 +71,7 @@ class MetaTagController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $this->metaTagService->delete($id);
+        return response()->json();
     }
 }

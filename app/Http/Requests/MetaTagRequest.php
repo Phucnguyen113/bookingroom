@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class MetaTagRequest extends FormRequest
 {
@@ -21,8 +22,23 @@ class MetaTagRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => 'required|string|max:255|unique:meta_tags,name',
-        ];
+        if ($this->_method === 'PUT') {
+            return [
+                'name' => 'required|string|max:255|unique:meta_tags,name',
+                'name' => [
+                    'required',
+                    'string',
+                    'max:255',
+                    Rule::unique('meta_tags', 'name')->ignore($this->route('tag')),
+                ],
+                'content' => 'nullable|string',
+            ];
+        } else {
+            return [
+                'name' => 'required|string|max:255|unique:meta_tags,name',
+                'content' => 'nullable|string',
+            ];
+        }
+        
     }
 }
