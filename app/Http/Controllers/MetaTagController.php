@@ -18,7 +18,7 @@ class MetaTagController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    { 
+    {
         $data = $this->metaTagService->getListMetaTag();
         return view('tags.index', compact('data'));
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MetaTagController;
 use App\Http\Middleware\AdminAdminLoginedMiddleware;
@@ -26,4 +27,5 @@ Route::group([
     'middleware' => ['auth', AdminAdminLoginedMiddleware::class]
 ], function () {
     Route::resource('tags', MetaTagController::class);
+    Route::resource('blogs', BlogController::class);
 });

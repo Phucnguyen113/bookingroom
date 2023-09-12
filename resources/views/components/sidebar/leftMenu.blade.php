@@ -10,4 +10,13 @@
       </p>
     </a>
   </li>
+  <li class="nav-item">
+    <a href="{{request()->is('blogs') ? '#' : url('/blogs')}}" class="nav-link {{request()->is('blogs*') ? 'active' : ''}}">
+      <i class="nav-icon fas fa-th"></i>
+      <p>
+        Blogs
+        <!-- <span class="right badge badge-danger">New</span> -->
+      </p>
+    </a>
+  </li>
 </ul>
