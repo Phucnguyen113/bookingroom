@@ -1,8 +1,11 @@
+@php
+ $pageName = 'Tags';
+@endphp
 @extends('master')
 @section('content')
 
 <div style="margin-bottom:15px">
-    <a href="{{url('tags/create')}}" class="btn btn-block btn-success" style="width: fit-content;">Add</a>
+    <a href="{{url('tags/create')}}" class="btn btn-block btn-success" style="width: fit-content;"><i class="fa fa-plus"></i></a>
 </div>
 
 <div class="card">
@@ -12,7 +15,7 @@
             <tr>
                 <th style="width: 10px">#</th>
                 <th>Name</th>
-                <th>Content</th>
+                <!-- <th>Content</th> -->
                 <th style="width: 200px">Action</th>
             </tr>
             </thead>
@@ -21,10 +24,18 @@
                     <tr>
                         <td>{{$metaTag->id}}</td>
                         <td>{{$metaTag->name}}</td>
-                        <td>{!!$metaTag->content!!}</td>
+                        <!-- <td>{!!$metaTag->content!!}</td> -->
                         <td>
-                            <a href="{{route('tags.edit', $metaTag->id)}}" class="btn btn-primary edit-btn mr-10">Edit</a>
-                            <a href="#" class="btn btn-danger del-btn" onclick="deleteMetaTag('{{$metaTag->id}}')">Delete</a>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#modal{{$metaTag->id}}">
+                                <i class="far fa-eye"></i>
+                            </button>
+                            @include('components.modal.default', ['modalId' => 'modal'.$metaTag->id, 'title' => $metaTag->name, 'content' => $metaTag->content])
+                            <a href="{{route('tags.edit', $metaTag->id)}}" class="btn btn-primary edit-btn mr-10">
+                                <i class="fas fa-edit" aria-hidden="true"></i>
+                            </a>
+                            <a href="#" class="btn btn-danger del-btn" onclick="deleteMetaTag('{{$metaTag->id}}')">
+                                <i class="fas fa-trash" aria-hidden="true"></i>
+                            </a>
                         </td>
                     </tr>
                 @endforeach

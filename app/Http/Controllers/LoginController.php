@@ -23,7 +23,7 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         if ($this->sessionService->login($request)) {
-            return redirect('/');
+            return redirect('/tags');
         }
         return redirect()->back();
     }

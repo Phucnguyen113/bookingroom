@@ -1,3 +1,6 @@
+@php
+ $pageName = 'Add Tag';
+@endphp
 @extends('master')
 @section('content')
 @if ($errors->any())

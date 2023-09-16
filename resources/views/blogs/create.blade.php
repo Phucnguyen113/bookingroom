@@ -1,3 +1,6 @@
+@php
+ $pageName = 'Add Blog';
+@endphp
 @extends('master')
 @section('content')
 @if ($errors->any())
