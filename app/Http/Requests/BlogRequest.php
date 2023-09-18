@@ -11,7 +11,7 @@ class BlogRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()->isAdmin();
     }
 
     /**
@@ -21,9 +21,17 @@ class BlogRequest extends FormRequest
      */
     public function rules(): array
     {
+        if ($this->method() === 'PUT') {
+            return [
+                'title' => 'required|string|max:255',
+                'content' => 'required|string',
+                'thumbnail' => 'nullable|image',
+            ];
+        }
         return [
             'title' => 'required|string|max:255',
             'content' => 'required|string',
+            'thumbnail' => 'required|image',
         ];
     }
 }

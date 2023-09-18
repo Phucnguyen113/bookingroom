@@ -24,10 +24,10 @@
                         <td>{{$key + 1}}</td>
                         <td>{{$blog->title}}</td>
                         <td>
-                            <button class="btn btn-warning" data-toggle="modal" data-target="#modal{{$blog->id}}">
+                            <a class="btn btn-warning" href="{{route('blogs.show', $blog->id)}}">
                                 <i class="far fa-eye"></i>
-                            </button>
-                            @include('components.modal.default', ['modalId' => 'modal'.$blog->id, 'title' => $blog->title, 'content' => $blog->content])
+                            </a>
+
                             <a href="{{route('blogs.edit', $blog->id)}}" class="btn btn-primary edit-btn mr-10">
                                 <i class="fas fa-edit" aria-hidden="true"></i>
                             </a>

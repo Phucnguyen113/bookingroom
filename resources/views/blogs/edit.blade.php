@@ -23,6 +23,15 @@
                     <input type="text" class="form-control" name="title" placeholder="Enter title" value="{{$blog->title}}">
                 </div>
                 <div class="form-group">
+                    <span>Thumnail</span>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" name="thumbnail">
+                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="content">Content</label><br>
                     <textarea id="summernote" name="content">
                       

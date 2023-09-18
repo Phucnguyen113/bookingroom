@@ -3,6 +3,7 @@
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MetaTagController;
+use App\Http\Controllers\RoomController;
 use App\Http\Middleware\AdminAdminLoginedMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -28,4 +29,5 @@ Route::group([
 ], function () {
     Route::resource('tags', MetaTagController::class);
     Route::resource('blogs', BlogController::class);
+    Route::resource('rooms', RoomController::class);
 });

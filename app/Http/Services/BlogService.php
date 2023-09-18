@@ -2,18 +2,18 @@
 
 namespace App\Http\Services;
 
+use App\Enums\MediaCollection;
 use App\Http\Contracts\Repositories\BlogRepositoryContract;
 use App\Http\Contracts\Services\BlogServiceContract;
 use App\Http\Requests\BlogRequest;
+use App\Http\Services\Traits\ForwardCallToEloquentRepository;
 use App\Models\Blog;
-use Illuminate\Http\Request;
 use DOMDocument;
 use DOMNodeList;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 class BlogService implements BlogServiceContract {
+
+    use ForwardCallToEloquentRepository;
 
     protected $blogRepository;
 
@@ -41,25 +41,16 @@ class BlogService implements BlogServiceContract {
     public function store(BlogRequest $request)
     {
         $blog = $this->blogRepository->create($request->only(['title', 'content']));
-        // $content = $this->replaceImageInContent($request, $blog);
-        // $blog->update([
-        //     'content' => $content,
-        // ]);
-
-        return redirect()->route('blogs.index');
+        $blog->addMedia($request->thumbnail)->toMediaCollection(MediaCollection::BlogThumbnail);
     }
 
-    public function update(Request $request, string $id)
+    public function update(BlogRequest $request, string $id)
     {
-
-        // $blog = $this->getBlogById($id);
-        // $blog->clearMediaCollection('blogs');
-        // $data = $request->only('title');
-        // $content = $this->replaceImageInContent($request, $blog);
-        // $data['content'] = $content;
-        // $blog->update($data);
-
-        return $this->blogRepository->where('id', $id)->update($request->only('title', 'content'));
+        $blog = $this->blogRepository->where('id', $id)->firstOrFail();
+        $blog->update($request->only('title', 'content'));
+        if ($request->hasFile('thumbnail')) {
+            $blog->addMedia($request->file('thumbnail'))->toMediaCollection(MediaCollection::BlogThumbnail);
+        }
     }
 
     protected function replaceImageInContent($request, $blog)
@@ -82,11 +73,6 @@ class BlogService implements BlogServiceContract {
     public function getListBlogs()
     {
         return $this->blogRepository->all();
-    }
-
-    public function getBlogById(string $id)
-    {
-        return $this->blogRepository->find($id);
     }
 
     public function delete(string $id)

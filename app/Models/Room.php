@@ -7,17 +7,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-class Blog extends Model implements HasMedia
+class Room extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 
-    protected $fillable = [
-        'title',
-        'content',
+    public $fillable = [
+        'name',
+        'address',
+        'description',
+        'price',
     ];
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection(MediaCollection::BlogThumbnail)->singleFile();
+        $this->addMediaCollection(MediaCollection::RoomThumbnail)->singleFile();
     }
 }

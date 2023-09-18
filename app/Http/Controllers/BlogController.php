@@ -46,7 +46,8 @@ class BlogController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $blog = $this->blogService->find($id);
+        return view('blogs.detail', compact('blog'));
     }
 
     /**
@@ -54,14 +55,14 @@ class BlogController extends Controller
      */
     public function edit(string $id)
     {
-        $blog = $this->blogService->getBlogById($id);
+        $blog = $this->blogService->find($id);
         return view('blogs.edit', compact('blog'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(BlogRequest $request, string $id)
     {
         $this->blogService->update($request, $id);
         return redirect()->route('blogs.index');
