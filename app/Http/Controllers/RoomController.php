@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Contracts\Services\RoomServiceContract;
+use App\Http\Requests\RoomRequest;
 use Illuminate\Http\Request;
 
 class RoomController extends Controller
@@ -18,7 +19,8 @@ class RoomController extends Controller
      */
     public function index()
     {
-        return view('rooms.index');
+        $rooms = $this->roomService->all();
+        return view('rooms.index', compact('rooms'));
     }
 
     /**
@@ -32,9 +34,9 @@ class RoomController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(RoomRequest $request)
     {
-        $this->roomService->create($request->only(['name', 'description', 'address', 'price']));
+        $this->roomService->create($request);
 
         return redirect()->route('rooms.index');
     }
@@ -44,7 +46,9 @@ class RoomController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $room = $this->roomService->findOrFail($id);
+        $room->loadMedia('*');
+        return view('rooms.detail', compact('room'));
     }
 
     /**
@@ -52,15 +56,19 @@ class RoomController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $room = $this->roomService->find($id);
+
+        return view('rooms.edit', compact('room'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(RoomRequest $request, string $id)
     {
-        //
+        $this->roomService->update($request, $id);
+
+        return redirect()->route('rooms.index');
     }
 
     /**

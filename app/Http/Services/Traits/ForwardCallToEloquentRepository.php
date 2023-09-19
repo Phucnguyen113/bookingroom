@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 trait ForwardCallToEloquentRepository {
 
-    protected $passthru = ['find', 'create', 'update', 'updateOrInsert', 'firstOrFail', 'firstOrCreate'];
+    protected $passthru = ['all', 'find', 'create', 'update', 'updateOrInsert', 'findOrFail', 'firstOrCreate'];
 
     public function __call($method, $args)
     {

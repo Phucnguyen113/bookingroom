@@ -19,4 +19,13 @@
       </p>
     </a>
   </li>
+  <li class="nav-item">
+    <a href="{{request()->is('rooms') ? '#' : route('rooms.index')}}" class="nav-link {{request()->is('rooms*') ? 'active' : ''}}">
+      <i class="nav-icon fas fa-home"></i>
+      <p>
+        Rooms
+        <!-- <span class="right badge badge-danger">New</span> -->
+      </p>
+    </a>
+  </li>
 </ul>

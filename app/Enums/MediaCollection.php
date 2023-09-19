@@ -12,5 +12,7 @@ use BenSampo\Enum\Enum;
 final class MediaCollection extends Enum
 {
     const BlogThumbnail = 'blogs-thumbnail';
+
     const RoomThumbnail = 'rooms-thumbnail';
+    const RoomImages = 'rooms-images';
 }
