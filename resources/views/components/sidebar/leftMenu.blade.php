@@ -1,15 +1,38 @@
 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-  <li class="nav-item">
-    <a href="{{request()->is('meta-info') ? '#' : route('metaInfo.index')}}" class="nav-link {{request()->is('meta-info*') ? 'active' : ''}}">
-      <i class="nav-icon fas fa-info"></i>
+  <li class="nav-item {{request()->is('meta-info*') ? 'menu-is-opening menu-open' : ''}}">
+    <a href="#" class="nav-link">
+      <i class="nav-icon fas fa-cog"></i>
       <p>
-        Information
+        Meta Setting
         <!-- <span class="right badge badge-danger">New</span> -->
+        <i class="fas fa-angle-left right"></i>
       </p>
     </a>
+    <ul class="nav nav-treeview">
+      <li class="nav-item">
+        <a href="{{request()->is('meta-info') ? '#' : route('metaInfo.index')}}" class="nav-link {{request()->is('meta-info/info') ? 'active' : ''}}">
+          <i class="nav-icon fas fa-info"></i>
+          <p>
+            Information
+            <!-- <span class="right badge badge-danger">New</span> -->
+          </p>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="{{request()->is('slide') ? '#' : route('metaInfo.slide')}}" class="nav-link {{request()->is('meta-info/slide') ? 'active' : ''}}">
+          <i class="nav-icon fas fa-image"></i>
+          <p>
+            Slides
+            <!-- <span class="right badge badge-danger">New</span> -->
+          </p>
+        </a>
+      </li>
+    </ul>
   </li>
+
   <li class="nav-item">
     <a href="{{request()->is('tags') ? '#' : url('/tags')}}" class="nav-link {{request()->is('tags*') ? 'active' : ''}}">
       <i class="nav-icon fas fa-tag"></i>

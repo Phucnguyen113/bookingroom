@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\MediaCollection;
+use App\Http\Requests\MetaSlidesRequest;
 use App\Http\Services\MetaInfoService;
 use App\Models\MetaTag;
 use Illuminate\Http\Request;
@@ -26,5 +28,18 @@ class MetaInfoController extends Controller
         $this->metaInfoService->store($request);
 
         return redirect()->route('metaInfo.index');
+    }
+
+    public function slides()
+    {
+        $infoSlides = $this->metaInfoService->findInfoSlides();
+        $infoSlides->load('media');
+        return view('metaInfo.slides', compact('infoSlides'));
+    }
+
+    public function storeSlides(MetaSlidesRequest $request)
+    {
+        $this->metaInfoService->storeSlides($request);
+        return redirect()->route('metaInfo.slide');
     }
 }

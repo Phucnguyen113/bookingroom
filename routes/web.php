@@ -32,6 +32,11 @@ Route::group([
     Route::resource('blogs', BlogController::class);
     Route::resource('rooms', RoomController::class);
 
-    Route::get('meta-info', [MetaInfoController::class, 'index'])->name('metaInfo.index');
-    Route::post('meta-info', [MetaInfoController::class, 'store'])->name('metaInfo.store');
+    Route::group(['prefix' => 'meta-info'], function () {
+        Route::get('info', [MetaInfoController::class, 'index'])->name('metaInfo.index');
+        Route::post('info', [MetaInfoController::class, 'store'])->name('metaInfo.store');
+
+        Route::get('slide', [MetaInfoController::class, 'slides'])->name('metaInfo.slide');
+        Route::post('slide', [MetaInfoController::class, 'storeSlides'])->name('metaInfo.storeSlide');
+    });
 });

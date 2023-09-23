@@ -22,5 +22,7 @@ class MetaInfo extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection(MediaCollection::MetaLogo)->singleFile();
+
+        $this->addMediaCollection(MediaCollection::MetaSlides)->onlyKeepLatest(5);
     }
 }

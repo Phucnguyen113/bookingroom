@@ -3,6 +3,7 @@ namespace App\Http\Services;
 
 use App\Enums\MediaCollection;
 use App\Http\Repositories\MetaInfoRepository;
+use App\Http\Requests\MetaSlidesRequest;
 use App\Http\Services\Traits\ForwardCallToEloquentRepository;
 
 class MetaInfoService
@@ -18,7 +19,7 @@ class MetaInfoService
 
     public function store($request)
     {
-        $this->metaInfoRepository->query()->truncate();
+        $this->metaInfoRepository->query()->where('type', '!=', 'slides')->delete();
         $data = $this->convertStoreData($request);
         $this->metaInfoRepository->insert($data);
         if ($request->hasFile('logo')) {
@@ -38,5 +39,22 @@ class MetaInfoService
                 'value' => $item,
             ];
         })->values()->toArray();;
+    }
+
+    public function findInfoSlides()
+    {
+        return $this->metaInfoRepository->firstOrCreate([
+            'type' => 'slides',
+            'value' => 'slides',
+        ]);
+    }
+
+    public function storeSlides(MetaSlidesRequest $request)
+    {
+        $infoSlides = $this->findInfoSlides();
+
+        foreach ($request->slides as $key => $file) {
+            $infoSlides->addMedia($file)->toMediaCollection(MediaCollection::MetaSlides);
+        }
     }
 }
