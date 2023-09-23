@@ -19,6 +19,9 @@
                 @endforeach
             </div>
         </div>
+        <p class="card-text">
+          Description
+        </p>
         <p class="card-text">{!!$room->description!!}</p>
       </div>
     </div>

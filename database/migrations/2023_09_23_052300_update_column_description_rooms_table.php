@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('meta_info', function (Blueprint $table) {
-            $table->id();
-            $table->longText('content');
-            $table->bigInteger('meta_tag_id');
-            $table->timestamps();
+        Schema::table('rooms', function (Blueprint $table) {
+            $table->longText('description')->change();
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('meta_info');
+        Schema::table('rooms', function (Blueprint $table) {
+            $table->text('description')->change();
+        });
     }
 };

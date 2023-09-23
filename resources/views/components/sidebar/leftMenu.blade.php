@@ -2,6 +2,15 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
   <li class="nav-item">
+    <a href="{{request()->is('meta-info') ? '#' : route('metaInfo.index')}}" class="nav-link {{request()->is('meta-info*') ? 'active' : ''}}">
+      <i class="nav-icon fas fa-info"></i>
+      <p>
+        Information
+        <!-- <span class="right badge badge-danger">New</span> -->
+      </p>
+    </a>
+  </li>
+  <li class="nav-item">
     <a href="{{request()->is('tags') ? '#' : url('/tags')}}" class="nav-link {{request()->is('tags*') ? 'active' : ''}}">
       <i class="nav-icon fas fa-tag"></i>
       <p>
@@ -28,4 +37,5 @@
       </p>
     </a>
   </li>
+
 </ul>

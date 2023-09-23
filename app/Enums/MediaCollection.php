@@ -15,4 +15,6 @@ final class MediaCollection extends Enum
 
     const RoomThumbnail = 'rooms-thumbnail';
     const RoomImages = 'rooms-images';
+
+    const MetaLogo = 'meta-logo';
 }

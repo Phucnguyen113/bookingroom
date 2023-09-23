@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MetaInfoController;
 use App\Http\Controllers\MetaTagController;
 use App\Http\Controllers\RoomController;
 use App\Http\Middleware\AdminAdminLoginedMiddleware;
@@ -30,4 +31,7 @@ Route::group([
     Route::resource('tags', MetaTagController::class);
     Route::resource('blogs', BlogController::class);
     Route::resource('rooms', RoomController::class);
+
+    Route::get('meta-info', [MetaInfoController::class, 'index'])->name('metaInfo.index');
+    Route::post('meta-info', [MetaInfoController::class, 'store'])->name('metaInfo.store');
 });
