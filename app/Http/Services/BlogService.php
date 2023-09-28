@@ -22,7 +22,6 @@ class BlogService implements BlogServiceContract {
         $this->blogRepository = $blogRepository;
     }
 
-
     protected function storeImagesFromSummerNote(DOMNodeList $imageFile, Blog $blog)
     {
         foreach($imageFile as $item => $image) {
@@ -42,6 +41,8 @@ class BlogService implements BlogServiceContract {
     {
         $blog = $this->blogRepository->create($request->only(['title', 'content']));
         $blog->addMedia($request->thumbnail)->toMediaCollection(MediaCollection::BlogThumbnail);
+
+        $blog->categories()->attach($request->category);
     }
 
     public function update(BlogRequest $request, string $id)
@@ -51,6 +52,7 @@ class BlogService implements BlogServiceContract {
         if ($request->hasFile('thumbnail')) {
             $blog->addMedia($request->file('thumbnail'))->toMediaCollection(MediaCollection::BlogThumbnail);
         }
+        $blog->categories()->sync($request->category);
     }
 
     protected function replaceImageInContent($request, $blog)

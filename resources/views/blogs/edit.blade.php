@@ -18,10 +18,27 @@
             @csrf
             @method('PUT')
             <div class="card-body">
-                <div class="form-group">
-                    <label for="title">Title</label>
-                    <input type="text" class="form-control" name="title" placeholder="Enter title" value="{{$blog->title}}">
-                </div>
+               <div class="row">
+                <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="text" class="form-control" name="title" placeholder="Enter title" value="{{$blog->title}}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="title">Category</label>
+                            <select class="category" name="category[]" style="width:100%" multiple>
+                            @php
+                                $categoryIds = $blog->categories->pluck('id')->toArray();
+                            @endphp
+                            @foreach($categories as $category)
+                                    <option value="{{$category->id}}" @if(in_array($category->id, $categoryIds)) selected @endif)>{{$category->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+               </div>
                 <div class="form-group">
                     <span>Thumnail</span>
                     <div class="input-group">
@@ -55,6 +72,7 @@
         })
         $('#summernote').summernote('code', '{!!$blog->content!!}')
         
+        $('.category').select2();
     })
 </script>
 @endsection

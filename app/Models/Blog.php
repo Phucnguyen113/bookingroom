@@ -20,4 +20,9 @@ class Blog extends Model implements HasMedia
     {
         $this->addMediaCollection(MediaCollection::BlogThumbnail)->singleFile();
     }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'categories_blogs');
+    }
 }

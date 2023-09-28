@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Contracts\Services\BlogServiceContract;
 use App\Http\Requests\BlogRequest;
+use App\Http\Services\CategoryService;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
     protected $blogService;
-
-    public function __construct(BlogServiceContract $blogService)
+    protected $categoryService;
+    public function __construct(BlogServiceContract $blogService, CategoryService $categoryService)
     {
         $this->blogService = $blogService;
+        $this->categoryService = $categoryService;
     }
 
     /**
@@ -29,7 +31,8 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view('blogs.create');
+        $categories = $this->categoryService->all();
+        return view('blogs.create', compact('categories'));
     }
 
     /**
@@ -55,8 +58,9 @@ class BlogController extends Controller
      */
     public function edit(string $id)
     {
+        $categories = $this->categoryService->all();
         $blog = $this->blogService->find($id);
-        return view('blogs.edit', compact('blog'));
+        return view('blogs.edit', compact('blog', 'categories'));
     }
 
     /**

@@ -26,12 +26,16 @@ class BlogRequest extends FormRequest
                 'title' => 'required|string|max:255',
                 'content' => 'required|string',
                 'thumbnail' => 'nullable|image',
+                'category' => 'required|array',
+                'category.*' => 'required|integer|exists:categories,id'
             ];
         }
         return [
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'thumbnail' => 'required|image',
+            'category' => 'required|array',
+            'category.*' => 'required|integer|exists:categories,id'
         ];
     }
 }

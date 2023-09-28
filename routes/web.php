@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MetaInfoController;
 use App\Http\Controllers\MetaTagController;
@@ -31,6 +32,7 @@ Route::group([
     Route::resource('tags', MetaTagController::class);
     Route::resource('blogs', BlogController::class);
     Route::resource('rooms', RoomController::class);
+    Route::resource('category', CategoryController::class);
 
     Route::group(['prefix' => 'meta-info'], function () {
         Route::get('info', [MetaInfoController::class, 'index'])->name('metaInfo.index');

@@ -17,9 +17,23 @@
         <form action="{{route('blogs.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="card-body">
-                <div class="form-group">
-                    <label for="title">Title</label>
-                    <input type="text" class="form-control" name="title" placeholder="Enter title" value="{{old('title')}}">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="text" class="form-control" name="title" placeholder="Enter title" value="{{old('title')}}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="title">Category</label>
+                            <select class="category" name="category[]" style="width:100%" multiple>
+                                @foreach($categories as $category)
+                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <span>Thumnail</span>
@@ -50,6 +64,8 @@
     $(function () {
         // Summernote
         $('#summernote').summernote()
+
+        $('.category').select2();
     })
 </script>
 @endsection
