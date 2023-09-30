@@ -9,15 +9,25 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Tags\HasTags;
+
 class Room extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia;
+    use HasFactory, InteractsWithMedia, HasTags;
 
     public $fillable = [
         'name',
         'address',
         'description',
         'price',
+        'unit',
+        'province',
+        'district',
+        'start_date',
+        'end_date',
+        'bedroom',
+        'bathroom',
+        'acreage',
     ];
 
     public function registerMediaCollections(): void

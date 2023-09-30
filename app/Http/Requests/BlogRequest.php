@@ -27,7 +27,8 @@ class BlogRequest extends FormRequest
                 'content' => 'required|string',
                 'thumbnail' => 'nullable|image',
                 'category' => 'required|array',
-                'category.*' => 'required|integer|exists:categories,id'
+                'category.*' => 'required|integer|exists:categories,id',
+                'tags' => 'required|array',
             ];
         }
         return [
@@ -35,7 +36,8 @@ class BlogRequest extends FormRequest
             'content' => 'required|string',
             'thumbnail' => 'required|image',
             'category' => 'required|array',
-            'category.*' => 'required|integer|exists:categories,id'
+            'category.*' => 'required|integer|exists:categories,id',
+            'tags' => 'required|array',
         ];
     }
 }

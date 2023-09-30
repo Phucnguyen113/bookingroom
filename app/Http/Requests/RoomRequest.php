@@ -26,21 +26,46 @@ class RoomRequest extends FormRequest
             return [
                 'name' => ['required', 'string', 'max:255', Rule::unique('rooms', 'name')->ignore($this->room)],
                 'price' => 'required|integer',
+                'province' => 'required|string',
+                'district' => 'required|string',
                 'address' => 'required|string',
                 'description' => 'required|string',
                 'images' => 'nullable|array|max:5',
                 'images.*' => 'required|image',
                 'thumbnail' => 'nullable|image',
+                'unit' => 'required|string|in:day,month,year',
+                'start_date' => 'required|date|date_format:Y-m-d',
+                'end_date' => 'required|date|date_format:Y-m-d',
+                'bedroom' => 'required|integer|min:1',
+                'bathroom' => 'required|integer|min:1',
+                'acreage' => 'required|integer|min:1',
+                'outdoor_facilities' => 'required|array',
+                'general_amenities' => 'required|array',
+                'outdoor_facilities.*' => 'required|string',
+                'general_amenities.*' => 'required|string',
             ];
         }
+
         return [
             'name' => 'required|string|max:255,unique:rooms,name',
             'price' => 'required|integer',
+            'province' => 'required|string',
+            'district' => 'required|string',
             'address' => 'required|string',
             'description' => 'required|string',
             'images' => 'required|array|max:5',
             'images.*' => 'required|image',
             'thumbnail' => 'required|image',
+            'unit' => 'required|string|in:day,month,year',
+            'start_date' => 'required|date|date_format:Y-m-d',
+            'end_date' => 'required|date|date_format:Y-m-d',
+            'bedroom' => 'required|integer|min:1',
+            'bathroom' => 'required|integer|min:1',
+            'acreage' => 'required|integer|min:1',
+            'outdoor_facilities' => 'required|array',
+            'general_amenities' => 'required|array',
+            'outdoor_facilities.*' => 'required|string',
+            'general_amenities.*' => 'required|string',
         ];
     }
 }

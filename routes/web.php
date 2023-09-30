@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MetaInfoController;
 use App\Http\Controllers\MetaTagController;
@@ -29,6 +30,8 @@ Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 Route::group([
     'middleware' => ['auth', AdminAdminLoginedMiddleware::class]
 ], function () {
+    Route::get('/', [DashboardController::class, 'index']);
+
     Route::resource('tags', MetaTagController::class);
     Route::resource('blogs', BlogController::class);
     Route::resource('rooms', RoomController::class);

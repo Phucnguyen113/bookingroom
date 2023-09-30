@@ -3,6 +3,7 @@
 namespace App\Http\Services;
 
 use App\Enums\MediaCollection;
+use App\Enums\Tags;
 use App\Http\Contracts\Repositories\BlogRepositoryContract;
 use App\Http\Contracts\Services\BlogServiceContract;
 use App\Http\Requests\BlogRequest;
@@ -10,7 +11,7 @@ use App\Http\Services\Traits\ForwardCallToEloquentRepository;
 use App\Models\Blog;
 use DOMDocument;
 use DOMNodeList;
-
+use Spatie\Tags\Tag;
 class BlogService implements BlogServiceContract {
 
     use ForwardCallToEloquentRepository;
@@ -41,7 +42,7 @@ class BlogService implements BlogServiceContract {
     {
         $blog = $this->blogRepository->create($request->only(['title', 'content']));
         $blog->addMedia($request->thumbnail)->toMediaCollection(MediaCollection::BlogThumbnail);
-
+        $blog->attachTags($request->tags, Tags::Blog);
         $blog->categories()->attach($request->category);
     }
 
@@ -53,6 +54,7 @@ class BlogService implements BlogServiceContract {
             $blog->addMedia($request->file('thumbnail'))->toMediaCollection(MediaCollection::BlogThumbnail);
         }
         $blog->categories()->sync($request->category);
+        $blog->syncTagsWithType($request->tags, Tags::Blog);
     }
 
     protected function replaceImageInContent($request, $blog)

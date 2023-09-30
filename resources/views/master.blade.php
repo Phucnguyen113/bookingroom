@@ -25,15 +25,11 @@
   <link rel="stylesheet" href="{{asset('plugins/daterangepicker/daterangepicker.css')}}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{asset('plugins/summernote/summernote-bs4.min.css')}}">
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
+  <!-- select 2 -->
+  <link rel="stylesheet" href="{{asset('plugins/select2/css/select2.min.css')}}">
+  <link rel="stylesheet" href="{{asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
   @section('css')
   @show
-  <style>
-    .modal-body {
-      overflow:scroll;
-    }
-  </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -155,11 +151,15 @@
 <script src="{{asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('js/adminlte.js')}}"></script>
+<!-- input mask -->
+<script src="{{asset('plugins/moment/moment.min.js')}}"></script>
+<script src="{{asset('plugins/inputmask/jquery.inputmask.min.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <!-- <script src="js/demo.js"></script> -->
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset('js/pages/dashboard.js')}}"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<!-- Select2 -->
+<script src="{{asset('plugins/select2/js/select2.full.min.js')}}"></script>
 
 @section('js')
 @show

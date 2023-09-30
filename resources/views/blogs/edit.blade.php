@@ -26,16 +26,33 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="title">Category</label>
-                            <select class="category" name="category[]" style="width:100%" multiple>
-                            @php
-                                $categoryIds = $blog->categories->pluck('id')->toArray();
-                            @endphp
-                            @foreach($categories as $category)
-                                    <option value="{{$category->id}}" @if(in_array($category->id, $categoryIds)) selected @endif)>{{$category->name}}</option>
-                                @endforeach
-                            </select>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="title">Category</label>
+                                    <select class="category" name="category[]" style="width:100%" multiple>
+                                    @php
+                                        $categoryIds = $blog->categories->pluck('id')->toArray();
+                                    @endphp
+                                    @foreach($categories as $category)
+                                            <option value="{{$category->id}}" @if(in_array($category->id, $categoryIds)) selected @endif)>{{$category->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="title">Tags</label>
+                                    <select class="tags" name="tags[]" style="width:100%" multiple>
+                                    @php
+                                        $taged = $blog->tags()->get()->pluck('id')->toArray();
+                                    @endphp
+                                    @foreach($tags as $tag)
+                                            <option value="{{$tag->name}}" @if(in_array($tag->id, $taged)) selected @endif>{{$tag->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                </div>
@@ -73,6 +90,10 @@
         $('#summernote').summernote('code', '{!!$blog->content!!}')
         
         $('.category').select2();
+
+        $('.tags').select2({
+            tags: true
+        });
     })
 </script>
 @endsection

@@ -25,14 +25,28 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="title">Category</label>
-                            <select class="category" name="category[]" style="width:100%" multiple>
-                                @foreach($categories as $category)
-                                    <option value="{{$category->id}}">{{$category->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                       <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="title">Category</label>
+                                    <select class="category" name="category[]" style="width:100%" multiple>
+                                        @foreach($categories as $category)
+                                            <option value="{{$category->id}}">{{$category->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="title">Tags</label>
+                                    <select class="tags" name="tags[]" style="width:100%" multiple>
+                                        @foreach($tags as $tag)
+                                            <option value="{{$tag->name}}">{{$tag->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                       </div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -66,6 +80,10 @@
         $('#summernote').summernote()
 
         $('.category').select2();
+
+        $('.tags').select2({
+            tags: true
+        });
     })
 </script>
 @endsection

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Tags;
 use App\Http\Contracts\Services\RoomServiceContract;
 use App\Http\Requests\RoomRequest;
 use Illuminate\Http\Request;
+use Spatie\Tags\Tag;
 
 class RoomController extends Controller
 {
@@ -28,7 +30,9 @@ class RoomController extends Controller
      */
     public function create()
     {
-        return view('rooms.create');
+        $serviceTags = $this->roomService->getServiceRoomTags();
+
+        return view('rooms.create', compact('serviceTags'));
     }
 
     /**
@@ -48,6 +52,7 @@ class RoomController extends Controller
     {
         $room = $this->roomService->findOrFail($id);
         $room->loadMedia('*');
+
         return view('rooms.detail', compact('room'));
     }
 
@@ -57,8 +62,8 @@ class RoomController extends Controller
     public function edit(string $id)
     {
         $room = $this->roomService->find($id);
-
-        return view('rooms.edit', compact('room'));
+        $serviceTags = $this->roomService->getServiceRoomTags();
+        return view('rooms.edit', compact('room', 'serviceTags'));
     }
 
     /**
