@@ -60,19 +60,28 @@
     const csrf = '{{csrf_token()}}'
     const prefix = '{{route("rooms.index")}}';
     function deleteRoom(id) {
-        const url = `${prefix}/${id}`;
-        $.ajax({
-            type: "DELETE",
-            url: url,
-            data: {_token: csrf},
-            dataType: "json",
-            success: function (response) {
-                console.log('re', response);
-                if (response) {
-                    window.location.reload();
+        Swal.fire({
+        title: 'Do you want to delete the Room ?',
+        icon: 'question',
+        iconHtml: '؟',
+        confirmButtonText: 'Delete',
+        cancelButtonText: 'Cancel',
+        showCancelButton: true,
+        showCloseButton: true
+      }).then(result => {
+            const url = `${prefix}/${id}`;
+            $.ajax({
+                type: "DELETE",
+                url: url,
+                data: {_token: csrf},
+                dataType: "json",
+                success: function (response) {
+                    if (response) {
+                        window.location.reload();
+                    }
                 }
-            }
-        });
+            });
+      });
     }
 
     $(document).ready(function () {

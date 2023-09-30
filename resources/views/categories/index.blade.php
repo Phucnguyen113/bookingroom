@@ -15,20 +15,21 @@
             <tr>
                 <th style="width: 10px">#</th>
                 <th>Name</th>
-                <!-- <th>Content</th> -->
+                <th>Type</th>
                 <th style="width: 200px">Action</th>
             </tr>
             </thead>
             <tbody>
-                @foreach($data as $cateogry)
+                @foreach($data as $category)
                     <tr>
-                        <td>{{$cateogry->id}}</td>
-                        <td>{{$cateogry->name}}</td>
+                        <td>{{$category->id}}</td>
+                        <td>{{$category->name}}</td>
+                        <td>{{App\Enums\TypeCategory::getKey($category->type)}}</td>
                         <td>
-                            <a href="{{route('category.edit', $cateogry->id)}}" class="btn btn-primary edit-btn mr-10">
+                            <a href="{{route('category.edit', $category->id)}}" class="btn btn-primary edit-btn mr-10">
                                 <i class="fas fa-edit" aria-hidden="true"></i>
                             </a>
-                            <a href="#" class="btn btn-danger del-btn" onclick="deleteCategory('{{$cateogry->id}}')">
+                            <a href="#" class="btn btn-danger del-btn" onclick="deleteCategory('{{$category->id}}')">
                                 <i class="fas fa-trash" aria-hidden="true"></i>
                             </a>
                         </td>

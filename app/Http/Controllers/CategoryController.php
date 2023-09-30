@@ -28,7 +28,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
+        $types = \App\Enums\TypeCategory::asSelectArray();
+        return view('categories.create', compact('types'));
     }
 
     /**
@@ -36,9 +37,7 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        $this->categoryService->create([
-            'name' => $request->name,
-        ]);
+        $this->categoryService->create($request->only('name', 'type'));
 
         return redirect()->route('category.index');
     }
@@ -57,7 +56,8 @@ class CategoryController extends Controller
     public function edit(string $id)
     {
         $category = $this->categoryService->findOrFail($id);
-        return view('categories.edit', compact('category'));
+        $types = \App\Enums\TypeCategory::asSelectArray();
+        return view('categories.edit', compact('category', 'types'));
     }
 
     /**
@@ -76,7 +76,7 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         $this->categoryService->delete($id);
-        
+
         return redirect()->route('category.index');
     }
 }

@@ -7,4 +7,5 @@ interface BlogServiceContract {
     public function store(BlogRequest $request);
     public function update(BlogRequest $request, string $id);
     public function getListBlogs();
+    public function getDependencyDataToCreateOrUpdate();
 }

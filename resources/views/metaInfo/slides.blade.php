@@ -14,7 +14,7 @@
                     <!-- Full-width images with number and caption text -->
                     @foreach($infoSlides->media as $key => $file)
                         <div class="mySlides">
-                            <div class="numbertext">{{$key + 1}} / 3</div>
+                            <div class="numbertext">{{$key + 1}} / {{$infoSlides->media->count()}}</div>
                             <img src="{{$file->getUrl()}}" style="width:100%">
                             <!-- <div class="text">Caption Text</div> -->
                         </div>

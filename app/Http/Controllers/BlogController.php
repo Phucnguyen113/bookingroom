@@ -6,8 +6,6 @@ use App\Enums\Tags;
 use App\Http\Contracts\Services\BlogServiceContract;
 use App\Http\Requests\BlogRequest;
 use App\Http\Services\CategoryService;
-use Illuminate\Http\Request;
-use Spatie\Tags\Tag;
 
 class BlogController extends Controller
 {
@@ -33,9 +31,8 @@ class BlogController extends Controller
      */
     public function create()
     {
-        $categories = $this->categoryService->all();
-        $tags = Tag::where('type', Tags::Blog)->get();
-        return view('blogs.create', compact('categories', 'tags'));
+        $data = $this->blogService->getDependencyDataToCreateOrUpdate();
+        return view('blogs.create', $data);
     }
 
     /**
@@ -61,10 +58,11 @@ class BlogController extends Controller
      */
     public function edit(string $id)
     {
-        $categories = $this->categoryService->all();
         $blog = $this->blogService->find($id);
-        $tags = Tag::where('type', Tags::Blog)->get();
-        return view('blogs.edit', compact('blog', 'categories', 'tags'));
+        $data = $this->blogService->getDependencyDataToCreateOrUpdate();
+        $data['blog'] = $blog;
+
+        return view('blogs.edit', $data);
     }
 
     /**

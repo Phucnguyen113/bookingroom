@@ -4,7 +4,9 @@ namespace App\Http\Services;
 
 use App\Enums\MediaCollection;
 use App\Enums\Tags;
+use App\Enums\TypeCategory;
 use App\Http\Contracts\Repositories\BlogRepositoryContract;
+use App\Http\Contracts\Repositories\CategoryRepositoryContract;
 use App\Http\Contracts\Services\BlogServiceContract;
 use App\Http\Requests\BlogRequest;
 use App\Http\Services\Traits\ForwardCallToEloquentRepository;
@@ -17,10 +19,12 @@ class BlogService implements BlogServiceContract {
     use ForwardCallToEloquentRepository;
 
     protected $blogRepository;
+    protected $categoryRepository;
 
-    public function __construct(BlogRepositoryContract $blogRepository)
+    public function __construct(BlogRepositoryContract $blogRepository, CategoryRepositoryContract $categoryRepository)
     {
         $this->blogRepository = $blogRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     protected function storeImagesFromSummerNote(DOMNodeList $imageFile, Blog $blog)
@@ -81,6 +85,18 @@ class BlogService implements BlogServiceContract {
 
     public function delete(string $id)
     {
-        return $this->blogRepository->where('id', $id)->delete();
+        $blog = $this->blogRepository->where('id', $id)->first();
+        if ($blog) {
+            $blog->categories()->detach();
+            $blog->delete();
+        }
+    }
+
+    public function getDependencyDataToCreateOrUpdate()
+    {
+        $categories = $this->categoryRepository->getCategoriesByType(TypeCategory::Blog, ['id', 'name']);
+        $tags = Tag::where('type', Tags::Blog)->get();
+
+        return compact('categories', 'tags');
     }
 }

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Enums\Tags;
+use App\Enums\TypeCategory;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -28,8 +29,15 @@ class DatabaseSeeder extends Seeder
         Tag::findOrCreate('#', Tags::RoomService['general_amenities']);
         Tag::findOrCreate('#', Tags::RoomService['outdoor_facilities']);
 
-        Category::create([
-            'name' => '#'
+        Category::insert([
+            [
+                'name' => '#',
+                'type' => TypeCategory::Room,
+            ],
+            [
+                'name' => '#',
+                'type' => TypeCategory::Blog,
+            ]
         ]);
     }
 }

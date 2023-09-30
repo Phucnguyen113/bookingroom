@@ -70,16 +70,26 @@
                     </div>
                </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="address">Start date</label>
                             <input type="date" class="form-control" name="start_date" placeholder="Enter start date" value="{{old('start_date')}}" >
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="address">End date</label>
                             <input type="date" class="form-control" name="end_date" placeholder="Enter end date" id="end_date" value="{{old('end_date')}}">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="address">Category</label>
+                            <select name="category[]" id="category" class="select2" multiple>
+                                @foreach($categories as $category)
+                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -178,7 +188,9 @@
             theme: 'bootstrap4',
             tags: true
         });
-        
+        $('#category').select2({
+            theme: 'bootstrap4'
+        })
 
         $('#start_date').datetimepicker({
             format: 'L'

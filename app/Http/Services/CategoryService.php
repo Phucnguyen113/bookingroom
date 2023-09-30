@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Services;
 
+use App\Enums\TypeCategory;
 use App\Http\Contracts\Repositories\CategoryRepositoryContract;
 use App\Http\Contracts\Services\CategoryServiceContract;
 use App\Http\Requests\CategoryRequest;
@@ -22,6 +23,7 @@ class CategoryService implements CategoryServiceContract
         $this->categoryRepository->where('id', $id)
         ->update([
             'name' => $request->name,
+            'type' => $request->type,
         ]);
     }
 
@@ -29,4 +31,15 @@ class CategoryService implements CategoryServiceContract
     {
         $this->categoryRepository->where('id', $id)->delete();
     }
+
+    public function blogCategories()
+    {
+        return $this->categoryRepository->getCategoriesByType(TypeCategory::Blog);
+    }
+
+    public function roomCategories()
+    {
+        return $this->categoryRepository->getCategoriesByType(TypeCategory::Room);
+    }
+
 }

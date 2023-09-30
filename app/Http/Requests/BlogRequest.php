@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\TypeCategory;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class BlogRequest extends FormRequest
 {
@@ -27,7 +29,11 @@ class BlogRequest extends FormRequest
                 'content' => 'required|string',
                 'thumbnail' => 'nullable|image',
                 'category' => 'required|array',
-                'category.*' => 'required|integer|exists:categories,id',
+                'category.*' => [
+                    'required',
+                    'integer',
+                    Rule::exists('categories', 'id')->where('type', TypeCategory::Blog),
+                ],
                 'tags' => 'required|array',
             ];
         }
@@ -36,7 +42,11 @@ class BlogRequest extends FormRequest
             'content' => 'required|string',
             'thumbnail' => 'required|image',
             'category' => 'required|array',
-            'category.*' => 'required|integer|exists:categories,id',
+            'category.*' => [
+                'required',
+                'integer',
+                Rule::exists('categories', 'id')->where('type', TypeCategory::Blog),
+            ],
             'tags' => 'required|array',
         ];
     }

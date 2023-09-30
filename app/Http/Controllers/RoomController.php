@@ -30,9 +30,9 @@ class RoomController extends Controller
      */
     public function create()
     {
-        $serviceTags = $this->roomService->getServiceRoomTags();
+        $data = $this->roomService->getDependencyDataToCreateOrUpdate();
 
-        return view('rooms.create', compact('serviceTags'));
+        return view('rooms.create', $data);
     }
 
     /**
@@ -52,8 +52,9 @@ class RoomController extends Controller
     {
         $room = $this->roomService->findOrFail($id);
         $room->loadMedia('*');
-
-        return view('rooms.detail', compact('room'));
+        $data = $this->roomService->getDependencyDataToCreateOrUpdate();
+        $data['room'] = $room;
+        return view('rooms.detail', $data);
     }
 
     /**
@@ -62,8 +63,9 @@ class RoomController extends Controller
     public function edit(string $id)
     {
         $room = $this->roomService->find($id);
-        $serviceTags = $this->roomService->getServiceRoomTags();
-        return view('rooms.edit', compact('room', 'serviceTags'));
+        $data = $this->roomService->getDependencyDataToCreateOrUpdate();
+        $data['room'] = $room;
+        return view('rooms.edit', $data);
     }
 
     /**
@@ -81,6 +83,7 @@ class RoomController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $this->roomService->delete($id);
+        return response()->json();
     }
 }

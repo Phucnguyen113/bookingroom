@@ -4,11 +4,13 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\MetaInfoController;
 use App\Http\Controllers\MetaTagController;
 use App\Http\Controllers\RoomController;
 use App\Http\Middleware\AdminAdminLoginedMiddleware;
 use Illuminate\Support\Facades\Route;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,4 +46,6 @@ Route::group([
         Route::get('slide', [MetaInfoController::class, 'slides'])->name('metaInfo.slide');
         Route::post('slide', [MetaInfoController::class, 'storeSlides'])->name('metaInfo.storeSlide');
     });
+
+    Route::delete('media/{media}', [MediaController::class, 'delete'])->name('delete-media');
 });

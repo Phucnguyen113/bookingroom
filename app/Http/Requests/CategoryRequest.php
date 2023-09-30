@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\TypeCategory;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -24,7 +25,12 @@ class CategoryRequest extends FormRequest
     {
         if ($this->method() === 'POST') {
             return [
-                'name' => 'required|string|unique:categories,name'
+                'name' => [
+                    'required',
+                    'string',
+                    Rule::unique('categories', 'name')->where('type', $this->type),
+                ],
+                'type' => 'required|string|in:' . implode(',', TypeCategory::getValues()),
             ];
         }
 
@@ -32,8 +38,9 @@ class CategoryRequest extends FormRequest
             'name' => [
                 'required',
                 'string',
-                Rule::unique('categories', 'name')->ignore($this->route('category')),
+                Rule::unique('categories', 'name')->where('type', $this->type)->ignore($this->route('category')),
             ],
+            'type' => 'required|string|in:' . implode(',', TypeCategory::getValues()),
         ];
         
     }

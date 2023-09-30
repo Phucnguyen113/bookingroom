@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\TypeCategory;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -35,7 +36,7 @@ class RoomRequest extends FormRequest
                 'thumbnail' => 'nullable|image',
                 'unit' => 'required|string|in:day,month,year',
                 'start_date' => 'required|date|date_format:Y-m-d',
-                'end_date' => 'required|date|date_format:Y-m-d',
+                'end_date' => 'required|date|date_format:Y-m-d|after:start_date',
                 'bedroom' => 'required|integer|min:1',
                 'bathroom' => 'required|integer|min:1',
                 'acreage' => 'required|integer|min:1',
@@ -43,6 +44,12 @@ class RoomRequest extends FormRequest
                 'general_amenities' => 'required|array',
                 'outdoor_facilities.*' => 'required|string',
                 'general_amenities.*' => 'required|string',
+                'category' => 'required|array',
+                'category.*' => [
+                    'required',
+                    'integer',
+                    Rule::exists('categories', 'id')->where('type', TypeCategory::Room),
+                ],
             ];
         }
 
@@ -58,7 +65,7 @@ class RoomRequest extends FormRequest
             'thumbnail' => 'required|image',
             'unit' => 'required|string|in:day,month,year',
             'start_date' => 'required|date|date_format:Y-m-d',
-            'end_date' => 'required|date|date_format:Y-m-d',
+            'end_date' => 'required|date|date_format:Y-m-d|after:start_date',
             'bedroom' => 'required|integer|min:1',
             'bathroom' => 'required|integer|min:1',
             'acreage' => 'required|integer|min:1',
@@ -66,6 +73,12 @@ class RoomRequest extends FormRequest
             'general_amenities' => 'required|array',
             'outdoor_facilities.*' => 'required|string',
             'general_amenities.*' => 'required|string',
+            'category' => 'required|array',
+            'category.*' => [
+                'required',
+                'integer',
+                Rule::exists('categories', 'id')->where('type', TypeCategory::Room),
+            ],
         ];
     }
 }

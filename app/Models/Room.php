@@ -6,6 +6,7 @@ use App\Enums\MediaCollection;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Http\UploadedFile;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -34,7 +35,7 @@ class Room extends Model implements HasMedia
     {
         $this->addMediaCollection(MediaCollection::RoomThumbnail)->singleFile();
 
-        $this->addMediaCollection(MediaCollection::RoomImages)->onlyKeepLatest(5);
+        $this->addMediaCollection(MediaCollection::RoomImages)->onlyKeepLatest(config('media.room.limit-images'));
     }
 
     public function thumbnail(): Attribute
@@ -67,5 +68,10 @@ class Room extends Model implements HasMedia
             //     return $this->addMedia($file)->toMediaCollection(MediaCollection::RoomThumbnail);
             // }
         );
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'categories_rooms');
     }
 }
