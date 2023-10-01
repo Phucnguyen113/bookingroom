@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Contracts\Services\CategoryServiceContract;
 use App\Http\Requests\CategoryRequest;
-use Illuminate\Http\Request;
-
+ 
 class CategoryController extends Controller
 {
     protected $categoryService;
@@ -39,7 +38,7 @@ class CategoryController extends Controller
     {
         $this->categoryService->create($request->only('name', 'type'));
 
-        return redirect()->route('category.index');
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -67,7 +66,7 @@ class CategoryController extends Controller
     {
         $this->categoryService->update($request, $id);
 
-        return redirect()->route('category.index');
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -75,8 +74,9 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        $this->categoryService->delete($id);
+        $code = $this->categoryService->delete($id);
 
-        return redirect()->route('category.index');
+        return response()->json([], $code);
+        
     }
 }

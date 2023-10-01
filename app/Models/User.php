@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Enums\UserRole;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -49,5 +50,10 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->role == UserRole::Admin;
+    }
+
+    public function roleString(): Attribute
+    {
+        return Attribute::make(fn () => UserRole::getKey($this->role));
     }
 }

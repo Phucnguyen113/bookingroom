@@ -2,18 +2,18 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\TypeCategory;
+use App\Enums\UserRole;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class CategoryRequest extends FormRequest
+class UserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()->isAdmin();
     }
 
     /**
@@ -23,14 +23,15 @@ class CategoryRequest extends FormRequest
      */
     public function rules(): array
     {
-        if ($this->method() === 'POST') {
+        if ($this->method() === 'PUT') {
             return [
                 'name' => [
                     'required',
                     'string',
-                    Rule::unique('categories', 'name')->where('type', $this->type),
+                    'max:255',
+                    Rule::unique('users', 'name')->ignore($this->user),
                 ],
-                'type' => 'required|string|in:' . implode(',', TypeCategory::getValues()),
+                'role' => 'required|integer|in:' . implode(',', UserRole::getValues()),
             ];
         }
 
@@ -38,10 +39,15 @@ class CategoryRequest extends FormRequest
             'name' => [
                 'required',
                 'string',
-                Rule::unique('categories', 'name')->where('type', $this->type)->ignore($this->route('category')),
+                'max:255',
+                Rule::unique('users', 'name'),
             ],
-            'type' => 'required|string|in:' . implode(',', TypeCategory::getValues()),
+            'role' => 'required|integer|in:' . implode(',', UserRole::getValues()),
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users', 'email'),
+            ],
         ];
-        
     }
 }

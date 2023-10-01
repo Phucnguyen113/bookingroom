@@ -6,6 +6,8 @@ use App\Http\Contracts\Repositories\CategoryRepositoryContract;
 use App\Http\Contracts\Services\CategoryServiceContract;
 use App\Http\Requests\CategoryRequest;
 use App\Http\Services\Traits\ForwardCallToEloquentRepository;
+use App\Models\Category;
+use Symfony\Component\HttpFoundation\Response;
 
 class CategoryService implements CategoryServiceContract
 {
@@ -29,7 +31,12 @@ class CategoryService implements CategoryServiceContract
 
     public function delete(string $id)
     {
-        $this->categoryRepository->where('id', $id)->delete();
+        $category = $this->categoryRepository->find($id);
+        if ($category && $this->canDelete($category)) {
+            $category->delete();
+            return Response::HTTP_OK;
+        }
+        return Response::HTTP_BAD_REQUEST;
     }
 
     public function blogCategories()
@@ -42,4 +49,21 @@ class CategoryService implements CategoryServiceContract
         return $this->categoryRepository->getCategoriesByType(TypeCategory::Room);
     }
 
+    private function canDelete(Category $category)
+    {
+        if ($category->type === TypeCategory::Room) {
+            return $this->canDeleteRoomCategory($category);
+        }
+        return $this->canDeleteBlogCategory($category);
+    }
+
+    private function canDeleteRoomCategory(Category $category)
+    {
+        return !$category->rooms()->exists();
+    }
+
+    private function canDeleteBlogCategory(Category $category)
+    {
+        return !$category->blogs()->exists();
+    }
 }

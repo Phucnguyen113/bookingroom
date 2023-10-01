@@ -14,7 +14,7 @@
 @endif
 <div class="card">
     <div class="card card-primary">
-        <form action="{{route('category.store')}}" method="POST">
+        <form action="{{route('categories.store')}}" method="POST">
             @csrf
             <div class="card-body">
                 <div class="row">

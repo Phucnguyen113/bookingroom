@@ -1,5 +1,5 @@
 @php
- $pageName = 'Edit Category';
+ $pageName = 'Edit User';
 @endphp
 @extends('master')
 @section('content')
@@ -14,7 +14,7 @@
 @endif
 <div class="card">
     <div class="card card-primary">
-        <form action="{{route('categories.update', $category->id)}}" method="POST">
+        <form action="{{route('users.update', $user->id)}}" method="POST">
             @csrf
             @method('PUT')
             <div class="card-body">
@@ -22,16 +22,22 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" class="form-control" name="name" placeholder="Enter name" value="{{$category->name}}">
+                            <input type="text" class="form-control" name="name" placeholder="Enter name" value="{{$user->name}}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="name">Email</label>
+                            <input type="email" class="form-control" name="email" placeholder="Enter email" value="{{$user->email}}" disabled>
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group">
-                            <label for="name">Type</label>
-                            <select name="type" id="type" class="select2">
-                                @foreach($types as $key => $type)
-                                    <option value="{{$key}}" @if($category->type === $key) selected @endif>{{$type}}</option>
+                            <label for="name">Role</label>
+                            <select name="role" id="role" class="select2">
+                                @foreach($roles as $key => $role)
+                                    <option value="{{$key}}" @if($key === $user->role) selected @endif>{{$role}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -50,7 +56,7 @@
     <script>
         $(document).ready(function () {
             $('.select2').select2({
-                theme: 'bootstrap4',
+                theme: 'bootstrap4'
             })
         });
     </script>

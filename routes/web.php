@@ -8,6 +8,7 @@ use App\Http\Controllers\MediaController;
 use App\Http\Controllers\MetaInfoController;
 use App\Http\Controllers\MetaTagController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminAdminLoginedMiddleware;
 use Illuminate\Support\Facades\Route;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -30,14 +31,15 @@ Route::post('login', [LoginController::class, 'login']);
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::group([
-    'middleware' => ['auth', AdminAdminLoginedMiddleware::class]
+    'middleware' => ['auth']
 ], function () {
     Route::get('/', [DashboardController::class, 'index']);
 
     Route::resource('tags', MetaTagController::class);
     Route::resource('blogs', BlogController::class);
     Route::resource('rooms', RoomController::class);
-    Route::resource('category', CategoryController::class);
+    Route::resource('categories', CategoryController::class);
+    Route::resource('users', UserController::class)->middleware(AdminAdminLoginedMiddleware::class);
 
     Route::group(['prefix' => 'meta-info'], function () {
         Route::get('info', [MetaInfoController::class, 'index'])->name('metaInfo.index');

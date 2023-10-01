@@ -19,6 +19,6 @@ class AdminAdminLoginedMiddleware
         if ($user->isAdmin()) {
             return $next($request);
         }
-       dd(123);
+        return abort(Response::HTTP_NOT_FOUND);
     }
 }

@@ -10,6 +10,17 @@
       </p>
     </a>
   </li>
+  @if(Auth::user()->isAdmin())
+    <li class="nav-item">
+      <a href="{{request()->is('/users') ? '#' : url('/users')}}" class="nav-link {{request()->is('/users*') ? 'active' : ''}}">
+      <i class="nav-icon fas fa-user"></i>
+        <p>
+          User
+          <!-- <span class="right badge badge-danger">New</span> -->
+        </p>
+      </a>
+    </li>
+  @endif
   <li class="nav-item {{request()->is('meta-info*') ? 'menu-is-opening menu-open' : ''}}">
     <a href="#" class="nav-link">
       <i class="nav-icon fas fa-cog"></i>
@@ -52,7 +63,7 @@
     </a>
   </li>
   <li class="nav-item">
-    <a href="{{request()->is('category') ? '#' : url('/category')}}" class="nav-link {{request()->is('category*') ? 'active' : ''}}">
+    <a href="{{request()->is('categories') ? '#' : url('/categories')}}" class="nav-link {{request()->is('categories*') ? 'active' : ''}}">
     <i class="nav-icon fas fa-tasks"></i>
       <p>
         Category

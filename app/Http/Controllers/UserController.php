@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\UserRole;
+use App\Http\Requests\UserRequest;
 use App\Http\Services\UserService;
 use Illuminate\Http\Request;
 
@@ -18,9 +20,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = $this->userService->all();
+        $data = $this->userService->all();
 
-        return view('users.index', compact('users'));
+        return view('users.index', compact('data'));
     }
 
     /**
@@ -28,15 +30,21 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $roles = UserRole::asSelectArray();
+        return view('users.create', compact('roles'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+        $data = $request->only('name', 'role', 'email');
+        $data['password'] = bcrypt(12345678);
+
+        $this->userService->create($data);
+
+        return redirect()->route('users.index');
     }
 
     /**
@@ -52,15 +60,19 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = $this->userService->find($id);
+        $roles = UserRole::asSelectArray();
+        return view('users.edit', compact('user', 'roles'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UserRequest $request, string $id)
     {
-        //
+        $this->userService->update($request, $id);
+
+        return redirect()->route('users.index');
     }
 
     /**
@@ -68,6 +80,8 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $code = $this->userService->delete($id);
+
+        return response()->json([], $code);
     }
 }

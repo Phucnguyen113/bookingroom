@@ -5,7 +5,7 @@
 @section('content')
 
 <div style="margin-bottom:15px">
-    <a href="{{route('category.create')}}" class="btn btn-block btn-success" style="width: fit-content;"><i class="fa fa-plus"></i></a>
+    <a href="{{route('categories.create')}}" class="btn btn-block btn-success" style="width: fit-content;"><i class="fa fa-plus"></i></a>
 </div>
 
 <div class="card">
@@ -26,7 +26,7 @@
                         <td>{{$category->name}}</td>
                         <td>{{App\Enums\TypeCategory::getKey($category->type)}}</td>
                         <td>
-                            <a href="{{route('category.edit', $category->id)}}" class="btn btn-primary edit-btn mr-10">
+                            <a href="{{route('categories.edit', $category->id)}}" class="btn btn-primary edit-btn mr-10">
                                 <i class="fas fa-edit" aria-hidden="true"></i>
                             </a>
                             <a href="#" class="btn btn-danger del-btn" onclick="deleteCategory('{{$category->id}}')">
@@ -55,7 +55,7 @@
 @section('js')
 <script>
     const csrf = '{{csrf_token()}}'
-    const prefix = '{{route("tags.index")}}';
+    const prefix = '{{route("categories.index")}}';
     function deleteCategory(id) {
         const url = `${prefix}/${id}`;
         $.ajax({
@@ -64,11 +64,13 @@
             data: {_token: csrf},
             dataType: "json",
             success: function (response) {
-                console.log('re', response);
-                if (response) {
-
-                }
-            }
+                Swal.fire('Delete Category success!', '', 'success').then(() => {
+                    window.location.reload();
+                });
+            },
+            error: function (response) {
+                Swal.fire('Delete Category failed!', '', 'error');
+            } 
         });
     }
 
