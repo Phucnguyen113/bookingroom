@@ -110,4 +110,9 @@ class RoomService implements RoomServiceContract
             $room->delete();
         }
     }
+
+    public function paginate($limit)
+    {
+        return $this->roomRepository->paginate(15);
+    }
 }
