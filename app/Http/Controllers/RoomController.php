@@ -21,7 +21,7 @@ class RoomController extends Controller
      */
     public function index()
     {
-        $rooms = $this->roomService->all();
+        $rooms = $this->roomService->paginate(15);
         return view('rooms.index', compact('rooms'));
     }
 

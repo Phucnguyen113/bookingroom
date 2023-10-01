@@ -113,6 +113,10 @@ class RoomService implements RoomServiceContract
 
     public function paginate($limit)
     {
-        return $this->roomRepository->paginate(15);
+        return $this->roomRepository
+        ->with([
+            'media',
+            'tags',
+        ])->paginate($limit);
     }
 }

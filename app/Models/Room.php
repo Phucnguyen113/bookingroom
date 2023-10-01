@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\MediaCollection;
+use App\Enums\Tags;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -42,15 +43,13 @@ class Room extends Model implements HasMedia
     {
         if ($this->relationLoaded('media')) {
             $thumbnail =  $this->media->where('collection_name', MediaCollection::RoomThumbnail)->first();
-        } else {
-            $thumbnail = $this->getMedia(MediaCollection::RoomThumbnail)->first();
         }
 
         return Attribute::make(
-            fn () => $thumbnail,
-            function (UploadedFile $file) {
-                return $this->addMedia($file)->toMediaCollection(MediaCollection::RoomThumbnail);
-            }
+            fn () => $thumbnail ?? null,
+            // function (UploadedFile $file) {
+            //     return $this->addMedia($file)->toMediaCollection(MediaCollection::RoomThumbnail);
+            // }
         );
     }
 
@@ -58,12 +57,10 @@ class Room extends Model implements HasMedia
     {
         if ($this->relationLoaded('media')) {
             $images = $this->media->where('collection_name', MediaCollection::RoomImages);
-        } else {
-            $images = $this->getMedia(MediaCollection::RoomImages);
         }
 
         return Attribute::make(
-            fn () => $images,
+            fn () => $images ?? collect([]),
             // function (UploadedFile $file) {
             //     return $this->addMedia($file)->toMediaCollection(MediaCollection::RoomThumbnail);
             // }

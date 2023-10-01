@@ -10,4 +10,5 @@ interface RoomServiceContract
     public function create(RoomRequest $request);
     public function update(RoomRequest $request, string $id);
     public function delete(string $id);
+    public function paginate($limit);
 }

@@ -22,6 +22,7 @@ use App\Http\Services\CategoryService;
 use App\Http\Services\MetaTagService;
 use App\Http\Services\RoomService;
 use App\Http\Services\SessionService;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -64,7 +65,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        JsonResource::withoutWrapping();
     }
 
     public function registerRepositories()
