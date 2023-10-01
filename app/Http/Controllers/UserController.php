@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Enums\UserRole;
+use App\Http\Requests\UserChangePasswordRequest;
 use App\Http\Requests\UserRequest;
 use App\Http\Services\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -83,5 +86,27 @@ class UserController extends Controller
         $code = $this->userService->delete($id);
 
         return response()->json([], $code);
+    }
+
+    public function profile()
+    {
+        $user = Auth::user();
+
+        return view('users.profile', compact('user'));
+    }
+
+    public function editPassword()
+    {
+        return view('users.edit-password');
+    }
+
+    public function UpdatePassword(UserChangePasswordRequest $request)
+    {
+        $user = Auth::user();
+        if (!Hash::check($request->old_password, $user->password)) {
+            return redirect()->back()->withErrors(['password' => 'Password invalid']);
+        }
+        $user->update(['password' => bcrypt($request->password)]);
+        return redirect()->route('profile');
     }
 }

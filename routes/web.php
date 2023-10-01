@@ -34,6 +34,9 @@ Route::group([
     'middleware' => ['auth']
 ], function () {
     Route::get('/', [DashboardController::class, 'index']);
+    Route::get('profile', [UserController::class, 'profile'])->name('profile');
+    Route::get('edit-password', [UserController::class, 'editPassword'])->name('edit-password');
+    Route::post('update-password', [UserController::class, 'updatePassword'])->name('update-password');
 
     Route::resource('tags', MetaTagController::class);
     Route::resource('blogs', BlogController::class);
