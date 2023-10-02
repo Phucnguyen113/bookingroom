@@ -9,6 +9,10 @@ use App\Http\Contracts\Repositories\RoomRepositoryContract;
 use App\Http\Contracts\Services\RoomServiceContract;
 use App\Http\Requests\RoomRequest;
 use App\Http\Services\Traits\ForwardCallToEloquentRepository;
+use App\Http\Support\OptimizeImage;
+use Spatie\ImageOptimizer\Optimizers\Jpegoptim;
+use Spatie\ImageOptimizer\Optimizers\Optipng;
+use Spatie\ImageOptimizer\Optimizers\Pngquant;
 use Spatie\Tags\Tag;
 
 class RoomService implements RoomServiceContract
@@ -51,6 +55,11 @@ class RoomService implements RoomServiceContract
         $room->attachTags($request->outdoor_facilities, Tags::RoomService['outdoor_facilities']);
 
         $room->categories()->attach($request->category);
+        $media = $room->media()->where('optimized', false)
+        ->whereIn('mime_type', ['image/jpeg', 'image/gif'])->get();
+        foreach ($media as $key => $image) {
+            OptimizeImage::load($image)->optimize()->save();
+        };
     }
 
     public function update(RoomRequest $request, string $id)
@@ -85,6 +94,12 @@ class RoomService implements RoomServiceContract
         $room->syncTagsWithType($request->outdoor_facilities, Tags::RoomService['outdoor_facilities']);
 
         $room->categories()->sync($request->category);
+
+        $media = $room->media()->where('optimized', false)
+        ->whereIn('mime_type', ['image/jpeg', 'image/gif'])->get();
+        foreach ($media as $key => $image) {
+            OptimizeImage::load($image)->optimize()->save();
+        };
     }
 
     public function getServiceRoomTags()

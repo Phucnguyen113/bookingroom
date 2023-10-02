@@ -22,6 +22,7 @@ use App\Http\Services\CategoryService;
 use App\Http\Services\MetaTagService;
 use App\Http\Services\RoomService;
 use App\Http\Services\SessionService;
+use App\Http\Support\OptimizeImage;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\ServiceProvider;
 
@@ -51,6 +52,9 @@ class AppServiceProvider extends ServiceProvider
         CategoryServiceContract::class => CategoryService::class,
     ];
 
+    protected $facades = [
+
+    ];
     /**
      * Register any application services.
      */
@@ -58,6 +62,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->registerRepositories();
         $this->registerServices();
+        $this->registerFacades();
     }
 
     /**
@@ -79,6 +84,13 @@ class AppServiceProvider extends ServiceProvider
     {
         foreach ($this->services as $abstract => $service) {
             $this->app->bind($abstract, $service);
+        }
+    }
+
+    public function registerFacades()
+    {
+        foreach ($this->facades as $facade => $concrete) {
+            $this->app->bind($facade, $concrete);
         }
     }
 }

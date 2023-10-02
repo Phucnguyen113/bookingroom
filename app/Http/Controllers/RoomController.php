@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Enums\Tags;
 use App\Http\Contracts\Services\RoomServiceContract;
 use App\Http\Requests\RoomRequest;
+use App\Http\Support\Facades\Image;
+use App\Http\Support\OptimizeImage;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Spatie\Tags\Tag;
-
 class RoomController extends Controller
 {
     protected $roomService;
@@ -52,6 +54,7 @@ class RoomController extends Controller
     {
         $room = $this->roomService->findOrFail($id);
         $room->loadMedia('*');
+
         $data = $this->roomService->getDependencyDataToCreateOrUpdate();
         $data['room'] = $room;
         return view('rooms.detail', $data);
