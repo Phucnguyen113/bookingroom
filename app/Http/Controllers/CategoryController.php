@@ -18,7 +18,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $data = $this->categoryService->all();
+        $data = $this->categoryService->paginate(config('paginate.default'));
         return view('categories.index', compact('data'));
     }
 

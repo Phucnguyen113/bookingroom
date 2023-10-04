@@ -80,7 +80,7 @@ class BlogService implements BlogServiceContract {
 
     public function getListBlogs()
     {
-        return $this->blogRepository->all();
+        return $this->blogRepository->paginate(config('paginate.default'));
     }
 
     public function delete(string $id)

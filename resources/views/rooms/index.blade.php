@@ -39,7 +39,7 @@
                 @endforeach
             </tbody>
         </table>
-        {!! $rooms->links('pagination::bootstrap-4') !!}
+        {!! $rooms->links() !!}
 
     </div>
 </div>

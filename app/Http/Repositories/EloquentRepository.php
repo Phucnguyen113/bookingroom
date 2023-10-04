@@ -17,4 +17,12 @@ abstract class EloquentRepository implements Eloquent {
         return $this->model->{$name}(...$arguments);
     }
 
+    public function model()
+    {
+        if (!$this->model instanceof Model) {
+            throw new \Exception('Oop, proterty model is not instance of Model');
+        }
+        return $this->model;
+    }
+
 }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\MediaCollection;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
@@ -27,5 +28,15 @@ class Blog extends Model implements HasMedia
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'categories_blogs');
+    }
+
+    public function thumbnail(): Attribute
+    {
+        if ($this->relationLoaded('media')) {
+            $media = $this->media->where('collection_name', MediaCollection::BlogThumbnail)->first();
+        } else {
+            $media = $this->getMedia(MediaCollection::BlogThumbnail)->first();
+        }
+        return Attribute::make(fn () => $media);
     }
 }

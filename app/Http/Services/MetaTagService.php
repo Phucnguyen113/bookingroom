@@ -5,9 +5,12 @@ namespace App\Http\Services;
 use App\Http\Contracts\Repositories\MetaTagRepositoryContract;
 use App\Http\Contracts\Services\MetaTagServiceContract;
 use App\Http\Requests\MetaTagRequest;
+use App\Http\Services\Traits\ForwardCallToEloquentRepository;
 use Illuminate\Http\Request;
 
 class MetaTagService implements MetaTagServiceContract {
+
+    use ForwardCallToEloquentRepository;
 
     protected $metaTagRepository;
 
@@ -23,7 +26,7 @@ class MetaTagService implements MetaTagServiceContract {
 
     public function getListMetaTag()
     {
-        return $this->metaTagRepository->all();
+        return $this->metaTagRepository->paginate(config('paginate.default'));
     }
 
     public function getMetaTagById(string $id)

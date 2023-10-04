@@ -23,7 +23,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = $this->userService->all();
+        $data = $this->userService->paginate(config('paginate.default'));
 
         return view('users.index', compact('data'));
     }
