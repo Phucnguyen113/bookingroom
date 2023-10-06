@@ -22,7 +22,7 @@ use App\Http\Services\CategoryService;
 use App\Http\Services\MetaTagService;
 use App\Http\Services\RoomService;
 use App\Http\Services\SessionService;
-use App\Http\Support\OptimizeImage;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
@@ -73,6 +73,9 @@ class AppServiceProvider extends ServiceProvider
     {
         JsonResource::withoutWrapping();
         Paginator::useBootstrapFour();
+        Builder::macro('applyFilter', function () {
+            return $this->getModel()->applyFilter();
+        });
     }
 
     public function registerRepositories()

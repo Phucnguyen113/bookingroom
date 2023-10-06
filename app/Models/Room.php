@@ -4,6 +4,9 @@ namespace App\Models;
 
 use App\Enums\MediaCollection;
 use App\Enums\Tags;
+use App\Http\Repositories\Filters\Filterable;
+use App\Http\Repositories\Filters\Rooms\RoomListFilter;
+use App\Http\Repositories\Traits\InteractsWithFilterable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,9 +16,9 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Tags\HasTags;
 
-class Room extends Model implements HasMedia
+class Room extends Model implements HasMedia, Filterable
 {
-    use HasFactory, InteractsWithMedia, HasTags;
+    use HasFactory, InteractsWithMedia, HasTags, InteractsWithFilterable;
 
     public $fillable = [
         'name',
@@ -37,6 +40,11 @@ class Room extends Model implements HasMedia
         $this->addMediaCollection(MediaCollection::RoomThumbnail)->singleFile();
 
         $this->addMediaCollection(MediaCollection::RoomImages)->onlyKeepLatest(config('media.room.limit-images'));
+    }
+
+    public function registerFilter()
+    {
+        $this->addFilter(new RoomListFilter());
     }
 
     public function thumbnail(): Attribute

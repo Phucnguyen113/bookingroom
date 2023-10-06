@@ -18,7 +18,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs = $this->blogService->model()->applyFilter()->with([
+        $blogs = $this->blogService->with([
             'categories',
             'media',
         ])->paginate(config('paginate.default'));
