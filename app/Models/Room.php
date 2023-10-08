@@ -33,6 +33,7 @@ class Room extends Model implements HasMedia, Filterable
         'bedroom',
         'bathroom',
         'acreage',
+        'view_count',
     ];
 
     public function registerMediaCollections(): void

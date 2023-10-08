@@ -21,7 +21,7 @@ class RoomController extends Controller
      */
     public function index()
     {
-        $room = $this->roomService->paginate(1);
+        $room = $this->roomService->paginate(2);
         return RoomResource::collection($room);
     }
 
@@ -38,7 +38,7 @@ class RoomController extends Controller
      */
     public function show(string $id)
     {
-        $room = $this->roomService->find($id);
+        $room = $this->roomService->findOrFail($id);
         return new RoomResource($room);
     }
 

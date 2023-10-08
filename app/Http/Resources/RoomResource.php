@@ -3,9 +3,11 @@
 namespace App\Http\Resources;
 
 use App\Enums\Tags;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Str;
 class RoomResource extends JsonResource
 {
     /**
@@ -46,5 +48,14 @@ class RoomResource extends JsonResource
         }
 
         return $result;
+    }
+
+    public function withResponse(Request $request, JsonResponse $response): void
+    {
+        $cookieName = (Str::replace('.','',($request->ip())).'-'. $this->id);
+        if (!Cookie::has($cookieName)) {
+            $this->increment('view_count');
+            $response->cookie($cookieName, 1, 1);
+        }
     }
 }
