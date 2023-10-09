@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Contracts\Services\CustomerContactServiceContract;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ReservationRequest;
-use App\Models\Reservation;
+use App\Http\Requests\CustomerContactRequest;
 use Illuminate\Http\Request;
 
-class ReservationController extends Controller
+class CustomerContactController extends Controller
 {
+    public function __construct(protected CustomerContactServiceContract $customerContactService)
+    {
+
+    }
     /**
      * Display a listing of the resource.
      */
@@ -20,9 +24,9 @@ class ReservationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ReservationRequest $request)
+    public function store(CustomerContactRequest $request)
     {
-        Reservation::create($request->only(['name', 'phone', 'email', 'room_id']));
+        $this->customerContactService->create($request->only(['name', 'email', 'phone', 'subject', 'message']));
 
         return response()->json();
     }

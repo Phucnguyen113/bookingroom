@@ -5,19 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Reservation extends Model
+class CustomerContact extends Model
 {
     use HasFactory;
+
+    protected $table = 'customer_contact';
 
     protected $fillable = [
         'name',
         'email',
         'phone',
-        'room_id',
+        'subject',
+        'message',
     ];
-
-    public function room()
-    {
-        return $this->belongsTo(Room::class);
-    }
 }

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\CustomerContactController;
+use App\Http\Controllers\Api\MetaInfoController;
 use App\Http\Controllers\Api\MetaTagController;
 use App\Http\Controllers\Api\ReservationController;
 use App\Http\Controllers\Api\RoomController;
@@ -29,3 +31,5 @@ Route::apiResource('tags', MetaTagController::class)->only('index', 'show');
 Route::apiResource('blogs', BlogController::class)->only('index', 'show');
 
 Route::post('reservations', [ReservationController::class, 'store']);
+Route::post('customer-contact', [CustomerContactController::class, 'store']);
+Route::get('meta-info', [MetaInfoController::class, 'index']);

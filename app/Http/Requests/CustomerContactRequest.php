@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ReservationRequest extends FormRequest
+class CustomerContactRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,8 @@ class ReservationRequest extends FormRequest
             'name' => 'required|string|max:255',
             'email' => 'required|email',
             'phone' => 'required|numeric|digits:10',
-            'room_id' => 'required|integer|exists:rooms,id'
+            'subject' => 'required|string:max:255',
+            'message' => 'required|string',
         ];
     }
 }

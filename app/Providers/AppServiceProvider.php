@@ -4,22 +4,34 @@ namespace App\Providers;
 
 use App\Http\Contracts\Repositories\BlogRepositoryContract;
 use App\Http\Contracts\Repositories\CategoryRepositoryContract;
+use App\Http\Contracts\Repositories\CustomerContactRepositoryContract;
+use App\Http\Contracts\Repositories\CustomerFeedbackRepositoryContract;
 use App\Http\Contracts\Repositories\MetaTagRepositoryContract;
+use App\Http\Contracts\Repositories\ReservationRepositoryContract;
 use App\Http\Contracts\Repositories\RoomRepositoryContract;
 use App\Http\Contracts\Repositories\UserRepositoryContract;
 use App\Http\Contracts\Services\BlogServiceContract;
 use App\Http\Contracts\Services\CategoryServiceContract;
+use App\Http\Contracts\Services\CustomerContactServiceContract;
+use App\Http\Contracts\Services\CustomerFeedbackServiceContract;
 use App\Http\Contracts\Services\MetaTagServiceContract;
+use App\Http\Contracts\Services\ReservationServiceContract;
 use App\Http\Contracts\Services\RoomServiceContract;
 use App\Http\Contracts\Services\SessionContract;
 use App\Http\Repositories\BlogRepository;
 use App\Http\Repositories\CategoryRepository;
+use App\Http\Repositories\CustomerContactRepository;
+use App\Http\Repositories\CustomerFeedbackRepository;
 use App\Http\Repositories\MetaTagRepository;
+use App\Http\Repositories\ReservationRepository;
 use App\Http\Repositories\RoomRepository;
 use App\Http\Repositories\UserRepository;
 use App\Http\Services\BlogService;
 use App\Http\Services\CategoryService;
+use App\Http\Services\CustomerContactService;
+use App\Http\Services\CustomerFeebackService;
 use App\Http\Services\MetaTagService;
+use App\Http\Services\ReservationService;
 use App\Http\Services\RoomService;
 use App\Http\Services\SessionService;
 use Illuminate\Database\Eloquent\Builder;
@@ -39,6 +51,13 @@ class AppServiceProvider extends ServiceProvider
         RoomRepositoryContract::class => RoomRepository::class,
 
         CategoryRepositoryContract::class => CategoryRepository::class,
+
+        ReservationServiceContract::class => ReservationService::class,
+
+        CustomerContactRepositoryContract::class => CustomerContactRepository::class,
+
+        CustomerFeedbackRepositoryContract::class => CustomerFeedbackRepository::class,
+
     ];
 
     protected $services = [
@@ -51,6 +70,12 @@ class AppServiceProvider extends ServiceProvider
         RoomServiceContract::class => RoomService::class,
 
         CategoryServiceContract::class => CategoryService::class,
+
+        ReservationRepositoryContract::class => ReservationRepository::class,
+
+        CustomerContactServiceContract::class => CustomerContactService::class,
+
+        CustomerFeedbackServiceContract::class => CustomerFeebackService::class,
     ];
 
     protected $facades = [

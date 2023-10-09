@@ -90,4 +90,34 @@
     </a>
   </li>
 
+  <li class="nav-item">
+    <a href="{{request()->is('reservations') ? '#' : route('reservations.index')}}" class="nav-link {{request()->is('reservations*') ? 'active' : ''}}">
+      <i class="fas fa-envelope"></i>
+      <p>
+        Reservation
+        <!-- <span class="right badge badge-danger">New</span> -->
+      </p>
+    </a>
+  </li>
+
+  <li class="nav-item">
+    <a href="{{request()->is('reservations') ? '#' : route('reservations.index')}}" class="nav-link {{request()->is('reservations*') ? 'active' : ''}}">
+      <i class="fas fa-comments"></i>
+      <p>
+        Customer feedback
+        <!-- <span class="right badge badge-danger">New</span> -->
+      </p>
+    </a>
+  </li>
+
+  <li class="nav-item">
+    <a href="{{request()->is('customer-contacts') ? '#' : route('customer-contacts.index')}}" class="nav-link {{request()->is('customer-contacts*') ? 'active' : ''}}">
+      <i class="far fa-address-book"></i>
+      <p>
+        Customer contact
+        <!-- <span class="right badge badge-danger">New</span> -->
+      </p>
+    </a>
+  </li>
+
 </ul>

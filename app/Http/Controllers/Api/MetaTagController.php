@@ -36,7 +36,7 @@ class MetaTagController extends Controller
      */
     public function show(string $id)
     {
-        $tag = $this->metaTagService->find($id);
+        $tag = $this->metaTagService->findOrFail($id);
         return new MetaTagResource($tag);
     }
 

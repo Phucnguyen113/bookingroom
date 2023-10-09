@@ -2,16 +2,17 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\MetaInfoController;
 use App\Http\Controllers\MetaTagController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminAdminLoginedMiddleware;
 use Illuminate\Support\Facades\Route;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,8 @@ Route::group([
     Route::resource('rooms', RoomController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('users', UserController::class)->middleware(AdminAdminLoginedMiddleware::class);
+    Route::resource('reservations', ReservationController::class);
+    Route::resource('customer-contacts', CustomerContactController::class)->only(['index']);
 
     Route::group(['prefix' => 'meta-info'], function () {
         Route::get('info', [MetaInfoController::class, 'index'])->name('metaInfo.index');

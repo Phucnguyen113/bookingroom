@@ -37,6 +37,8 @@ class MetaInfoService
             return [
                 'type' => $index,
                 'value' => $item,
+                'created_at' => now(),
+                'updated_at' => now(),
             ];
         })->values()->toArray();;
     }
