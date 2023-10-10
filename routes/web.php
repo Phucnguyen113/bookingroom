@@ -3,6 +3,7 @@
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerContactController;
+use App\Http\Controllers\CustomerFeedbackController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MediaController;
@@ -46,6 +47,7 @@ Route::group([
     Route::resource('users', UserController::class)->middleware(AdminAdminLoginedMiddleware::class);
     Route::resource('reservations', ReservationController::class);
     Route::resource('customer-contacts', CustomerContactController::class)->only(['index']);
+    Route::resource('customer-feedbacks', CustomerFeedbackController::class)->only(['index']);
 
     Route::group(['prefix' => 'meta-info'], function () {
         Route::get('info', [MetaInfoController::class, 'index'])->name('metaInfo.index');

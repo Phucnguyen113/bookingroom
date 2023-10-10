@@ -29,7 +29,7 @@ use App\Http\Repositories\UserRepository;
 use App\Http\Services\BlogService;
 use App\Http\Services\CategoryService;
 use App\Http\Services\CustomerContactService;
-use App\Http\Services\CustomerFeebackService;
+use App\Http\Services\CustomerFeedbackService;
 use App\Http\Services\MetaTagService;
 use App\Http\Services\ReservationService;
 use App\Http\Services\RoomService;
@@ -75,7 +75,7 @@ class AppServiceProvider extends ServiceProvider
 
         CustomerContactServiceContract::class => CustomerContactService::class,
 
-        CustomerFeedbackServiceContract::class => CustomerFeebackService::class,
+        CustomerFeedbackServiceContract::class => CustomerFeedbackService::class,
     ];
 
     protected $facades = [

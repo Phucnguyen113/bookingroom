@@ -27,6 +27,17 @@ class DashboardService
         $totalCategory = $this->categoryRepository->count();
         $totalRoom = $this->roomRepository->count();
         $totalUser = $this->userRepository->count();
-        return compact('totalBlog', 'totalCategory', 'totalRoom', 'totalUser');
+        $charData = $this->chartData();
+        return compact('totalBlog', 'totalCategory', 'totalRoom', 'totalUser', 'charData');
+    }
+
+    public function chartData()
+    {
+       $data =  $this->roomRepository->roomsWithHighestView();
+       $barData = $data->map(fn ($item) => [$item->id, $item->view_count])->toArray();
+
+       $ticks = $data->map(fn ($item) => [$item->id, $item->name])->toArray();
+
+        return compact('barData', 'ticks');
     }
 }

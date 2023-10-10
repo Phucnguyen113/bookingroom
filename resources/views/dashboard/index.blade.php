@@ -69,4 +69,42 @@
           @endif
           <!-- ./col -->
         </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h3 class="card-title">Rooms with highest view</h3>
+      <div id="bar-chart" style="height: 300px;top:50px"></div>
+    </div>
+  </div>
+@endsection
+
+@section('js')
+<script src="{{asset('plugins/flot/jquery.flot.js')}}"></script>
+<!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+<script src="{{asset('plugins/flot/plugins/jquery.flot.resize.js')}}"></script>
+<!-- FLOT PIE PLUGIN - also used to draw donut charts -->
+<script src="{{asset('plugins/flot/plugins/jquery.flot.pie.js')}}"></script>
+  <script>
+        var bar_data = {
+        data : @json($data['charData']['barData']),
+        bars: { show: true }
+      }
+
+      $.plot('#bar-chart', [bar_data], {
+        grid  : {
+          borderWidth: 1,
+          borderColor: '#f3f3f3',
+          tickColor  : '#f3f3f3'
+        },
+        series: {
+          bars: {
+            show: true, barWidth: 0.5, align: 'center',
+          },
+        },
+        colors: ['#3c8dbc'],
+        xaxis : {
+          ticks: {!!json_encode($data['charData']['ticks'])!!}
+        },
+      })
+  </script>
 @endsection

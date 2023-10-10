@@ -101,7 +101,7 @@
   </li>
 
   <li class="nav-item">
-    <a href="{{request()->is('reservations') ? '#' : route('reservations.index')}}" class="nav-link {{request()->is('reservations*') ? 'active' : ''}}">
+    <a href="{{request()->is('customer-feedbacks') ? '#' : route('customer-feedbacks.index')}}" class="nav-link {{request()->is('customer-feedbacks*') ? 'active' : ''}}">
       <i class="fas fa-comments"></i>
       <p>
         Customer feedback

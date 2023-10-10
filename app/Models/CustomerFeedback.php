@@ -8,4 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class CustomerFeedback extends Model
 {
     use HasFactory;
+    protected $table = 'customer_feedbacks';
+    protected $fillable = [
+        'name',
+        'email',
+        'phone',
+        'rating',
+        'message',
+        'room_id',
+    ];
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
 }

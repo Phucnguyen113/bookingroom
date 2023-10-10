@@ -12,4 +12,10 @@ class RoomRepository extends EloquentRepository implements RoomRepositoryContrac
     {
         parent::__construct($model);
     }
+
+    public function roomsWithHighestView()
+    {
+        return $this->model->orderByDesc('view_count')
+        ->limit(10)->get(['id', 'name', 'view_count']);
+    }
 }
