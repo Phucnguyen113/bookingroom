@@ -12,11 +12,6 @@ abstract class EloquentRepository implements Eloquent {
         $this->model = $model;
     }
 
-    public function __call($name, $arguments)
-    {
-        return $this->model->{$name}(...$arguments);
-    }
-
     public function model()
     {
         if (!$this->model instanceof Model) {
@@ -25,4 +20,13 @@ abstract class EloquentRepository implements Eloquent {
         return $this->model;
     }
 
+    public function __call($name, $arguments)
+    {
+        return $this->model->{$name}(...$arguments);
+    }
+
+    public function __get($name)
+    {
+        return $this->model->{$name};
+    }
 }

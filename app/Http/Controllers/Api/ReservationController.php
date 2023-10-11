@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ReservationRequest;
 use App\Models\Reservation;
+use App\Models\User;
+use App\Notifications\CustomerBooking;
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
@@ -22,8 +24,8 @@ class ReservationController extends Controller
      */
     public function store(ReservationRequest $request)
     {
-        Reservation::create($request->only(['name', 'phone', 'email', 'room_id']));
-
+        $reservation = Reservation::create($request->only(['name', 'phone', 'email', 'room_id']));
+        $this->notifyCustomerBookingToAllUsers($reservation);
         return response()->json();
     }
 
@@ -49,5 +51,13 @@ class ReservationController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function notifyCustomerBookingToAllUsers(Reservation $reservation)
+    {
+        $users = User::all();
+        foreach ($users as $key => $user) {
+            $user->notify(new CustomerBooking($reservation));
+        }
     }
 }

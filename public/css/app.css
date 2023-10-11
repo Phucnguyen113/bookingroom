@@ -1,0 +1,70 @@
+.select2 {
+    width: 100%;
+  }
+  ::-webkit-scrollbar {
+    width: 12px; /* Adjust to your preferred width */
+    background-color: #f0f0f0; /* Set your desired background color */
+  }
+
+  /* Define the scrollbar track (the area the scrollbar moves on) */
+  ::-webkit-scrollbar-track {
+    background-color: #f0f0f0; /* Set your desired track color */
+  }
+
+  /* Define the scrollbar thumb (the draggable part of the scrollbar) */
+  ::-webkit-scrollbar-thumb {
+    background-color: #888; /* Set your desired thumb color */
+    border-radius: 6px; /* Add rounded corners */
+  }
+
+  /* Define the scrollbar thumb on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Set a different color on hover */
+  }
+
+  /* Optionally, you can style the scrollbar buttons (not available in all browsers) */
+  ::-webkit-scrollbar-button {
+    background-color: #ccc;
+  }
+
+  /* Optionally, style the scrollbar corner (not available in all browsers) */
+  ::-webkit-scrollbar-corner {
+    background-color: #f0f0f0;
+  }
+  i.far.fa-bell::after {
+    font-size: 17px;
+    position: absolute;
+    font-weight: bold;
+    color: white;
+    background-color: red;
+    top: -7px;
+    padding: 1px 3px;
+    right: -10px;
+    border-radius: 0.25rem;
+  }
+  i.far.fa-bell {
+    position: relative;
+    cursor: pointer;
+  }
+  #notifications-list {
+    display: none;
+    position: absolute;
+    bottom: -200px;
+    border: 1px solid black;
+    border-radius: 0.4rem;
+    padding: 0.4em 0;
+    height: 200px;
+    width: 500px;
+    overflow-y: scroll;
+    right: 100px;
+    background-color: white;
+  }
+
+  #notifications-list li{
+    border-bottom: 1px dotted black;
+    padding: 0.4em 0.8em;
+    cursor: pointer;
+  }
+  .show-notifications {
+    display: block!important;
+  }

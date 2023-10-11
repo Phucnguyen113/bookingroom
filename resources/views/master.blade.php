@@ -1,3 +1,7 @@
+@php
+  $totalNotifications = $notifications->where('read_at', null)->count();
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,11 +34,10 @@
   <!-- select 2 -->
   <link rel="stylesheet" href="{{asset('plugins/select2/css/select2.min.css')}}">
   <link rel="stylesheet" href="{{asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
-
-
+  <link rel="stylesheet" href="{{asset('css/app.css')}}">
   <style>
-    .select2 {
-      width: 100%;
+    i.far.fa-bell::after {
+      content: '{{$totalNotifications > 100 ? "99+" : $totalNotifications}}';
     }
   </style>
   @section('css')
@@ -170,7 +173,13 @@
 <!-- Select2 -->
 <script src="{{asset('plugins/select2/js/select2.full.min.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+<script>
+    $(function () {
+      $('#notifications').click(function () {
+        $('#notifications-list').toggleClass('show-notifications')
+      });
+    });
+</script>
 @section('js')
 @show
 </body>
