@@ -73,7 +73,7 @@
   <div class="card">
     <div class="card-body">
       <h3 class="card-title">Rooms with highest view</h3>
-      <div id="bar-chart" style="height: 300px;top:50px"></div>
+      <div id="bar-chart" style="height: 300px;margin-top:50px"></div>
     </div>
   </div>
 @endsection

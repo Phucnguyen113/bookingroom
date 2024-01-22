@@ -9,7 +9,7 @@ class CustomerFeedbackController extends Controller
 {
     public function __construct(protected CustomerFeedbackServiceContract $customerFeedbackService)
     {
-        
+
     }
     /**
      * Display a listing of the resource.

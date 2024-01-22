@@ -54,6 +54,6 @@ class User extends Authenticatable
 
     public function roleString(): Attribute
     {
-        return Attribute::make(fn () => UserRole::getKey($this->role));
+        return Attribute::make(fn () => UserRole::getKey((int) $this->role));
     }
 }

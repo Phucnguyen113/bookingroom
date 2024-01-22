@@ -26,7 +26,7 @@
                         <td>{{$customerFeedback->name}}</td>
                         <td>{{$customerFeedback->email}}</td>
                         <td>{{$customerFeedback->phone}}</td>
-                        <td>{{$customerFeedback->room->name}}</td>
+                        <td><a href="{{route('rooms.show', $customerFeedback->room->id)}}" target="_blank" rel="noopener noreferrer">{{$customerFeedback->room->name}}</a></td>
                         <td>{{$customerFeedback->created_at->format('Y-m-d H:i:s')}}</td>
                         <td data-toggle="tooltip" title="{{$customerFeedback->message}}"> {{substr($customerFeedback->message, 0, 50)}} @if(strlen($customerFeedback->message) > 50)...@endif</td>
                     </tr>

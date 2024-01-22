@@ -9,6 +9,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\MetaInfoController;
 use App\Http\Controllers\MetaTagController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\UserController;
@@ -58,4 +59,6 @@ Route::group([
     });
 
     Route::delete('media/{media}', [MediaController::class, 'delete'])->name('delete-media');
+
+    Route::post('mark-as-read', [NotificationController::class, 'markAsRead'])->name('mark-as-read');
 });

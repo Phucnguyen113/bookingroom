@@ -21,7 +21,7 @@ class RoomController extends Controller
      */
     public function index()
     {
-        $room = $this->roomService->paginate(2);
+        $room = $this->roomService->paginate(config('paginate.default'));
         return RoomResource::collection($room);
     }
 

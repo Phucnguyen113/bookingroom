@@ -16,10 +16,12 @@
     <ul class="navbar-nav ml-auto">
 
       <li class="nav-item mr-4" style="display: flex;justify-content: center;align-items: center;">
-          <i class="far fa-bell" id="notifications" style="font-size:25px"></i>
+          <i class="far fa-bell" id="notifications" style="font-size:25px" data-total='{{$totalNotifications > 100 ? "99+" : $totalNotifications }}'></i>
           <ul id="notifications-list">
               @foreach($notifications as $notification)
-                <li data-id="{{$notification->id}}" style="{{$notification->read_at ? 'background-color: #efefeff7' : ''}}">{{$notification->content}}</li>
+                <li data-id="{{$notification->id}}" class="{{$notification->read_at ? 'read' : 'no-read'}}">
+                  <span class="notification-content">{!!$notification->content!!}</span> <br><span class="notification-time">{{$notification->created_at->format('Y-m-d H:i:s')}}</span>
+                </li>
               @endforeach
           </ul>
       </li>

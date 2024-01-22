@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\CustomerFeedback as ModelsCustomerFeedback;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -14,7 +15,7 @@ class CustomerFeedback extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct(protected ModelsCustomerFeedback $customerFeedback)
     {
         //
     }
@@ -26,7 +27,7 @@ class CustomerFeedback extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -48,7 +49,11 @@ class CustomerFeedback extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            //
+            'name' => $this->customerFeedback->name,
+            'phone' => $this->customerFeedback->phone,
+            'email' => $this->customerFeedback->email,
+            'room_id' => $this->customerFeedback->room_id,
+            'message' => $this->customerFeedback->message,
         ];
     }
 }

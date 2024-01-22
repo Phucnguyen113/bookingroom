@@ -35,11 +35,6 @@
   <link rel="stylesheet" href="{{asset('plugins/select2/css/select2.min.css')}}">
   <link rel="stylesheet" href="{{asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{asset('css/app.css')}}">
-  <style>
-    i.far.fa-bell::after {
-      content: '{{$totalNotifications > 100 ? "99+" : $totalNotifications}}';
-    }
-  </style>
   @section('css')
   @show
 </head>
@@ -66,17 +61,16 @@
     <!-- Sidebar -->
     <!-- <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
           <img src="{{asset('/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">Alexander Pierce</a>
         </div>
-      </div>
+      </div> -->
 
       <!-- SidebarSearch Form -->
-      
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -175,8 +169,37 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(function () {
-      $('#notifications').click(function () {
+      const notificationElm = $('#notifications');
+      $(window).click(function (e) {
+        e.stopPropagation();
+        var target = e.currentTarget;
+        if (target.id != 'notifications') {
+          $('#notifications-list').removeClass('show-notifications')
+        }
+      })
+      notificationElm.click(function (e) {
+        e.stopPropagation();
         $('#notifications-list').toggleClass('show-notifications')
+      });
+
+      $('#notifications-list li').click(function (e) {
+        e.stopPropagation();
+        if ([...e.target.classList].includes('read')) {
+          return;
+        }
+        const id = this.getAttribute('data-id');
+        const element = this;
+        $.ajax({
+          type: "POST",
+          url: "{{route('mark-as-read')}}",
+          data: {id},
+          dataType: "json",
+          success: function (response) {
+            element.classList.add('read');
+            element.classList.remove('no-read');
+            notificationElm.attr('data-total', notificationElm.attr('data-total') - 1);
+          }
+        });
       });
     });
 </script>
