@@ -26,6 +26,7 @@ class RoomResource extends JsonResource
             'unit' => $this->unit,
             'province' => $this->province,
             'district' => $this->district,
+            'view_count' => $this->view_count,
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,
             'bedroom' => $this->bedroom,
@@ -35,6 +36,7 @@ class RoomResource extends JsonResource
             'thumbnail' => $this->whenLoaded('media', $this->thumbnail?->getUrl(), null),
             'categories' => $this->whenLoaded('categories', $this->categories->map(fn ($item) => ['id' => $item->id, 'name' => $item->name]), []),
             'tags' => $this->whenLoaded('tags', $this->loadTags(), []),
+            'customer_feedbacks' => $this->whenLoaded('customerFeedbacks', $this->loadCustomerFeedbacks(), [])
         ];
     }
 
@@ -48,6 +50,11 @@ class RoomResource extends JsonResource
         }
 
         return $result;
+    }
+
+    public function loadCustomerFeedbacks()
+    {
+        return $this->customerFeedbacks;
     }
 
     public function withResponse(Request $request, JsonResponse $response): void

@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\CustomerContactController;
 use App\Http\Controllers\Api\CustomerFeedbackController;
+use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\MetaInfoController;
 use App\Http\Controllers\Api\MetaTagController;
 use App\Http\Controllers\Api\ReservationController;
@@ -36,3 +37,4 @@ Route::post('customer-contact', [CustomerContactController::class, 'store']);
 Route::post('customer-feedback', [CustomerFeedbackController::class, 'store']);
 
 Route::get('meta-info', [MetaInfoController::class, 'index']);
+Route::get('home', [HomeController::class, 'index']);

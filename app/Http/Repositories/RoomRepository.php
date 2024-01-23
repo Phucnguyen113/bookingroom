@@ -4,6 +4,8 @@ namespace App\Http\Repositories;
 
 use App\Http\Contracts\Repositories\RoomRepositoryContract;
 use App\Models\Room;
+use Closure;
+use Illuminate\Database\Eloquent\Collection;
 
 class RoomRepository extends EloquentRepository implements RoomRepositoryContract {
     protected $model;
@@ -13,9 +15,20 @@ class RoomRepository extends EloquentRepository implements RoomRepositoryContrac
         parent::__construct($model);
     }
 
-    public function roomsWithHighestView()
+    /**
+     * @param null|int $limit
+     *
+     * @return Collection
+     */
+    public function roomsWithHighestView(null|int $limit = null, null|Closure $builder = null) : Collection
     {
-        return $this->model->orderByDesc('view_count')
-        ->limit(10)->get(['id', 'name', 'view_count']);
+        $query = $this->model->orderByDesc('view_count');
+
+        if ($builder instanceof Closure) {
+            $builder($query);
+        }
+
+        return $query->limit($limit ?? config('paginate.default'))
+            ->get();
     }
 }

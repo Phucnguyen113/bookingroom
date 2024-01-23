@@ -10,6 +10,7 @@ use App\Http\Contracts\Services\RoomServiceContract;
 use App\Http\Requests\RoomRequest;
 use App\Http\Services\Traits\ForwardCallToEloquentRepository;
 use App\Http\Support\OptimizeImage;
+use Closure;
 use Spatie\ImageOptimizer\Optimizers\Jpegoptim;
 use Spatie\ImageOptimizer\Optimizers\Optipng;
 use Spatie\ImageOptimizer\Optimizers\Pngquant;
@@ -133,5 +134,10 @@ class RoomService implements RoomServiceContract
             'media',
             'tags',
         ])->paginate($limit);
+    }
+
+    public function getRoomHighestView(null|int $limit = null, null|Closure $builder = null)
+    {
+        return $this->roomRepository->roomsWithHighestView($limit, $builder);
     }
 }

@@ -80,4 +80,9 @@ class Room extends Model implements HasMedia, Filterable
     {
         return $this->belongsToMany(Category::class, 'categories_rooms');
     }
+
+    public function customerFeedbacks()
+    {
+        return $this->hasMany(CustomerFeedback::class, 'room_id', 'id');
+    }
 }

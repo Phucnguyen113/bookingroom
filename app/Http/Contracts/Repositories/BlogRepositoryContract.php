@@ -1,6 +1,11 @@
 <?php
 namespace App\Http\Contracts\Repositories;
 
-interface BlogRepositoryContract {
+use Illuminate\Database\Eloquent\Collection;
 
+interface BlogRepositoryContract {
+    /**
+     * @return Collection
+     */
+    public function getBlogsHomePage() :Collection;
 }

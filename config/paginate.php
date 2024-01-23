@@ -1,4 +1,7 @@
 <?php
 return [
-    'default' => 1,
+    'default' => 10,
+    'home' => [
+        'room' => 3
+    ]
 ];

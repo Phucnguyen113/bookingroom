@@ -13,6 +13,7 @@ use App\Http\Services\Traits\ForwardCallToEloquentRepository;
 use App\Models\Blog;
 use DOMDocument;
 use DOMNodeList;
+use Illuminate\Database\Eloquent\Collection;
 use Spatie\Tags\Tag;
 class BlogService implements BlogServiceContract {
 
@@ -98,5 +99,10 @@ class BlogService implements BlogServiceContract {
         $tags = Tag::where('type', Tags::Blog)->get();
 
         return compact('categories', 'tags');
+    }
+
+    public function getBlogsHomePage(): Collection
+    {
+        return $this->blogRepository->getBlogsHomePage();
     }
 }
