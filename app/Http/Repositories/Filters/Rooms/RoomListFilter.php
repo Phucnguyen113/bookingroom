@@ -3,7 +3,7 @@ namespace App\Http\Repositories\Filters\Rooms;
 
 use App\Enums\RoomPriceFilter;
 use App\Http\Repositories\Filters\Filters;
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder;
 
 class RoomListFilter extends Filters
 {
@@ -11,6 +11,8 @@ class RoomListFilter extends Filters
         'categories',
         'price',
         'quickSearch',
+        'startDate',
+        'endDate',
     ];
 
     public array $enableScopes = [
@@ -46,14 +48,37 @@ class RoomListFilter extends Filters
             $model = $builder->getModel();
             $fillable = $model->getFillable();
             $value = $request['quickSearch'];
-            foreach ($fillable as $key => $column) {
-                $method = 'where';
-                if ($key > 0) {
-                    $method = 'orWhere';
+
+            $builder->where(function (Builder $query) use ($fillable, $model, $value) {
+                foreach ($fillable as $key => $column) {
+                    $query->orWhere($model->qualifyColumn($column), 'LIKE', "%$value%");
                 }
-                $builder->{$method}($model->qualifyColumn($column), 'LIKE', "%$value%");
-            }
+            });
         }
+    }
+
+    public function whereStartDate(Builder $builder)
+    {
+        $request = $this->request;
+        if (isset($request['startDate'])) {
+            $model = $builder->getModel();
+            $builder->where(function (Builder $query) use ($model, $request) {
+                $query->where($model->qualifyColumn('start_date'), '<=', $request['startDate'])
+                    ->where($model->qualifyColumn('end_date'), '>=', $request['startDate']);
+            });
+        };
+    }
+
+    public function whereEndDate(Builder $builder)
+    {
+        $request = $this->request;
+        if (isset($request['endDate'])) {
+            $model = $builder->getModel();
+            $builder->where(function (Builder $query) use ($model, $request) {
+                $query->where($model->qualifyColumn('start_date'), '<=', $request['endDate'])
+                    ->where($model->qualifyColumn('end_date'), '>=', $request['endDate']);
+            });
+        };
     }
 
     public function sort(Builder $builder)

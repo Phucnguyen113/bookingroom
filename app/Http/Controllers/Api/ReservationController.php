@@ -24,7 +24,19 @@ class ReservationController extends Controller
      */
     public function store(ReservationRequest $request)
     {
-        $reservation = Reservation::create($request->only(['name', 'phone', 'email', 'room_id']));
+        $reservation = Reservation::create($request->only([
+            'name',
+            'phone',
+            'email',
+            'room_id',
+            'room_type',
+            'min_price',
+            'max_price',
+            'location',
+            'bedroom',
+            'bathroom',
+        ]));
+
         $this->notifyCustomerBookingToAllUsers($reservation);
         return response()->json();
     }

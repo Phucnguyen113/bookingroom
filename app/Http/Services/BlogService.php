@@ -45,7 +45,7 @@ class BlogService implements BlogServiceContract {
 
     public function store(BlogRequest $request)
     {
-        $blog = $this->blogRepository->create($request->only(['title', 'content']));
+        $blog = $this->blogRepository->create($request->only(['title', 'description','content']));
         $blog->addMedia($request->thumbnail)->toMediaCollection(MediaCollection::BlogThumbnail);
         $blog->attachTags($request->tags, Tags::Blog);
         $blog->categories()->attach($request->category);
@@ -54,7 +54,7 @@ class BlogService implements BlogServiceContract {
     public function update(BlogRequest $request, string $id)
     {
         $blog = $this->blogRepository->where('id', $id)->firstOrFail();
-        $blog->update($request->only('title', 'content'));
+        $blog->update($request->only('title', 'description', 'content'));
         if ($request->hasFile('thumbnail')) {
             $blog->addMedia($request->file('thumbnail'))->toMediaCollection(MediaCollection::BlogThumbnail);
         }

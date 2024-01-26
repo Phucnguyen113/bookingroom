@@ -122,7 +122,17 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="address">Room type</label><br>
+                            <select class="service" name="room_type" id="room_type" style="width:100%" disabled>
+                                @foreach(App\Enums\RoomType::asSelectArray() as $key => $description)
+                                    <option value="{{$key}}" @if($room->room_type === $key) selected @endif>{{$description}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="address">General amenities</label><br>
                             <select class="service" name="general_amenities[]" id="general_amenities" style="width:100%" multiple disabled>
@@ -136,7 +146,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="address">Outdoor facilities</label><br>
                             <select class="service" name="outdoor_facilities[]" id="outdoor_facilities" style="width:100%" multiple disabled>

@@ -14,6 +14,12 @@ class Reservation extends Model
         'email',
         'phone',
         'room_id',
+        'room_type',
+        'min_price',
+        'max_price',
+        'location',
+        'bedroom',
+        'bathroom',
     ];
 
     public function room()

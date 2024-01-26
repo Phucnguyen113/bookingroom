@@ -7,6 +7,7 @@ use App\Enums\Tags;
 use App\Http\Repositories\Filters\Filterable;
 use App\Http\Repositories\Filters\Rooms\RoomListFilter;
 use App\Http\Repositories\Traits\InteractsWithFilterable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -34,6 +35,7 @@ class Room extends Model implements HasMedia, Filterable
         'bathroom',
         'acreage',
         'view_count',
+        'room_type',
     ];
 
     public function registerMediaCollections(): void
@@ -84,5 +86,24 @@ class Room extends Model implements HasMedia, Filterable
     public function customerFeedbacks()
     {
         return $this->hasMany(CustomerFeedback::class, 'room_id', 'id');
+    }
+
+    public function relatedRooms()
+    {
+        $relatedRooms = self::where('id', '!=', $this->id)
+        ->where(function (Builder $query) {
+            $query->orWhere([
+                'bedroom' => $this->bedroom,
+                'bathroom' => $this->bathroom,
+                'acreage' => $this->acreage,
+                'province' => $this->province,
+                'district' => $this->district,
+            ]);
+        })->limit(config('paginate.room.related'))->get();
+
+        $this->relatedRooms = $relatedRooms;
+
+        return $relatedRooms;
+
     }
 }

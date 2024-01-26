@@ -27,6 +27,7 @@ class BlogRequest extends FormRequest
             return [
                 'title' => 'required|string|max:255',
                 'content' => 'required|string',
+                'description' => 'required|string|max:255',
                 'thumbnail' => 'nullable|image',
                 'category' => 'required|array',
                 'category.*' => [
@@ -40,6 +41,7 @@ class BlogRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'content' => 'required|string',
+            'description' => 'required|string|max:255',
             'thumbnail' => 'required|image',
             'category' => 'required|array',
             'category.*' => [

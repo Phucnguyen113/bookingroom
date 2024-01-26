@@ -66,8 +66,14 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="content">Description</label><br>
+                    <textarea class="summernote" id="description" name="description">
+                        {{old('content')}}
+                    </textarea>
+                </div>
+                <div class="form-group">
                     <label for="content">Content</label><br>
-                    <textarea id="summernote" name="content">
+                    <textarea class="summernote" id="content" name="content">
                       
                     </textarea>
                 </div>
@@ -84,11 +90,11 @@
 <script>
     $(function () {
         // Summernote
-        $('#summernote').summernote({
+        $('.summernote').summernote({
             height:450
         })
-        $('#summernote').summernote('code', '{!!$blog->content!!}')
-        
+        $('#content').summernote('code', '{!!$blog->content!!}')
+        $('#description').summernote('code', '{!!$blog->description!!}')
         $('.category').select2();
 
         $('.tags').select2({

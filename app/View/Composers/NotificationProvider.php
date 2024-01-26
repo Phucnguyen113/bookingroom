@@ -21,7 +21,7 @@ class NotificationProvider
         $notifcations = $data->map (function ($item) use ($rooms) {
             $room = $rooms->where('id', $item->data['room_id'])->first();
             if ($item->type === CustomerBooking::class) {
-                $item->content = '<strong>' . $item->data['name'] . '</strong> booking the room ' .$room->name;
+                $item->content = '<strong>' . $item->data['name'] . '</strong> just made the reservation.';
             } elseif ($item->type === CustomerFeedback::class) {
                 $item->content = '<strong>' . $item->data['name'] . '</strong> send feedback for ' .$room->name;
             }

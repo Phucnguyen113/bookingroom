@@ -50,6 +50,7 @@ class RoomRequest extends FormRequest
                     'integer',
                     Rule::exists('categories', 'id')->where('type', TypeCategory::Room),
                 ],
+                'room_type' => 'required|integer|between:0,4',
             ];
         }
 
@@ -79,6 +80,7 @@ class RoomRequest extends FormRequest
                 'integer',
                 Rule::exists('categories', 'id')->where('type', TypeCategory::Room),
             ],
+            'room_type' => 'required|integer|between:0,4',
         ];
     }
 }

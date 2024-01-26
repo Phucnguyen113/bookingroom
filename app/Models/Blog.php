@@ -7,6 +7,7 @@ use App\Http\Repositories\Filters\Blogs\BlogListFilter;
 use App\Http\Repositories\Filters\Filterable;
 use App\Http\Repositories\Filters\Filters;
 use App\Http\Repositories\Traits\InteractsWithFilterable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -21,6 +22,7 @@ class Blog extends Model implements HasMedia, Filterable
 
     protected $fillable = [
         'title',
+        'description',
         'content',
     ];
 
@@ -47,5 +49,17 @@ class Blog extends Model implements HasMedia, Filterable
             $media = $this->getMedia(MediaCollection::BlogThumbnail)->first();
         }
         return Attribute::make(fn () => $media);
+    }
+
+    public function relatedBlogs()
+    {
+        return self::where('id', '!=', $this->id)
+            ->where(function (Builder $query) {
+                $query->withAnyTagsOfAnyType($this->tags)
+                ->orWhereHas('categories', function (Builder $_query) {
+                    $_query->whereIn('categories.id', $this->categories->pluck('id')->toArray());
+                });
+            })->with(['media', 'categories'])
+            ->limit(config('paginate.blog.related'))->get();
     }
 }

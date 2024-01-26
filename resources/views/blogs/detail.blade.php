@@ -5,13 +5,21 @@
 @extends('master')
 
 @section('content')
-<div class="row">
-  <div class="col-md-12">
-    <div class="card">
-      <div class="card-body">
-        <p class="card-text">{!!$blog->content!!}</p>
-      </div>
-    </div>
+
+<div class="">
+  <div class="meta">
+      <p>Created at: <span id="publish-date">{{$blog->created_at->format('Y/m/d')}}</span></p>
+  </div>
+  <div class="description">
+      <p id="blog-description">
+          {{$blog->description}}
+      </p>
+  </div>
+  <div class="content">
+      <p id="blog-content">
+      {!!$blog->content!!}
+      </p>
   </div>
 </div>
+
 @endsection

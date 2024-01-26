@@ -10,6 +10,7 @@ use App\Http\Contracts\Services\RoomServiceContract;
 use App\Http\Requests\RoomRequest;
 use App\Http\Services\Traits\ForwardCallToEloquentRepository;
 use App\Http\Support\OptimizeImage;
+use App\Models\Room;
 use Closure;
 use Spatie\ImageOptimizer\Optimizers\Jpegoptim;
 use Spatie\ImageOptimizer\Optimizers\Optipng;
@@ -45,6 +46,7 @@ class RoomService implements RoomServiceContract
             'bedroom',
             'bathroom',
             'acreage',
+            'room_type',
         ]));
 
         $room->addMedia($request->file('thumbnail'))->toMediaCollection(MediaCollection::RoomThumbnail);
@@ -79,6 +81,7 @@ class RoomService implements RoomServiceContract
             'bedroom',
             'bathroom',
             'acreage',
+            'room_type'
         ]));
 
         if ($request->hasFile('thumbnail')) {
@@ -139,5 +142,16 @@ class RoomService implements RoomServiceContract
     public function getRoomHighestView(null|int $limit = null, null|Closure $builder = null)
     {
         return $this->roomRepository->roomsWithHighestView($limit, $builder);
+    }
+
+    public function findOrFail(int $id): Room
+    {
+        $room =  $this->roomRepository->findOrFail($id);
+
+        $room->load([
+            'media',
+        ]);
+
+        return $room;
     }
 }
