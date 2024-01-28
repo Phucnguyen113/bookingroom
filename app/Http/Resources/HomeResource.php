@@ -17,7 +17,7 @@ class HomeResource extends JsonResource
         return [
             'rooms' => RoomResource::collection($this['rooms']),
             'blogs' => BlogResource::collection($this['blogs']),
-            'meta-info' => MetaInfoResource::collection($this['metaInfo']),
+            'meta_info' => MetaInfoResource::collection($this['metaInfo']),
         ];
     }
 }

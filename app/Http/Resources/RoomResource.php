@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Str;
 class RoomResource extends JsonResource
 {
+    protected static $loadRelatedRoom = false;
     /**
      * Transform the resource into an array.
      *
@@ -17,6 +18,7 @@ class RoomResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $relatedRooms = $this->relatedRooms();
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -37,8 +39,18 @@ class RoomResource extends JsonResource
             'categories' => $this->whenLoaded('categories', $this->categories->map(fn ($item) => ['id' => $item->id, 'name' => $item->name]), []),
             'tags' => $this->whenLoaded('tags', $this->loadTags(), []),
             'customer_feedbacks' => $this->whenLoaded('customerFeedbacks', $this->loadCustomerFeedbacks(), []),
-            'related_rooms' => $this->relatedRooms(),
+            'related_rooms' => $this->when($relatedRooms, $relatedRooms),
         ];
+    }
+
+    public function relatedRooms()
+    {
+        if (self::$loadRelatedRoom) {
+            return;
+        }
+        $relatedRooms = $this->resource->relatedRooms();
+        self::$loadRelatedRoom = true;
+        return self::collection($relatedRooms);
     }
 
     public function loadTags()

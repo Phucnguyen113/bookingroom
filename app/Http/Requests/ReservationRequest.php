@@ -24,14 +24,14 @@ class ReservationRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|email',
-            'phone' => 'required|numeric|digits:10',
+            'phone' => 'nullable|numeric|digits:10',
             'room_id' => 'nullable|integer|exists:rooms,id',
-            'room_type' => 'required|integer|between:0,4',
-            'min_price' => 'required|numeric|min:0',
-            'max_price' => 'required|numeric|gt:min_price',
+            'room_type' => 'nullable|integer|between:0,4',
+            'min_price' => 'nullable|numeric|min:0',
+            'max_price' => 'nullable|numeric|gt:min_price',
             'location' => 'nullable|string',
-            'bedroom' => 'required|integer|min:1',
-            'bathroom' => 'required|integer|min:1',
+            'bedroom' => 'nullable|integer|min:1',
+            'bathroom' => 'nullable|integer|min:1',
         ];
     }
 }

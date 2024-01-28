@@ -9,6 +9,7 @@ use App\Http\Contracts\Repositories\RoomRepositoryContract;
 use App\Http\Contracts\Services\RoomServiceContract;
 use App\Http\Requests\RoomRequest;
 use App\Http\Services\Traits\ForwardCallToEloquentRepository;
+use App\Http\Services\Traits\Location;
 use App\Http\Support\OptimizeImage;
 use App\Models\Room;
 use Closure;
@@ -19,7 +20,7 @@ use Spatie\Tags\Tag;
 
 class RoomService implements RoomServiceContract
 {
-    use ForwardCallToEloquentRepository;
+    use ForwardCallToEloquentRepository, Location;
 
     protected $roomRepository;
     protected $categoryRepository;
@@ -116,8 +117,8 @@ class RoomService implements RoomServiceContract
     {
         $serviceTags = $this->getServiceRoomTags();
         $categories = $this->categoryRepository->getCategoriesByType(TypeCategory::Room, ['id', 'name']);
-
-        return compact('serviceTags', 'categories');
+        $locations = $this->getLocations();
+        return compact('serviceTags', 'categories', 'locations');
     }
 
     public function delete(string $id)
@@ -144,7 +145,7 @@ class RoomService implements RoomServiceContract
         return $this->roomRepository->roomsWithHighestView($limit, $builder);
     }
 
-    public function findOrFail(int $id): Room
+    public function findOrFail(string|int $id): Room
     {
         $room =  $this->roomRepository->findOrFail($id);
 

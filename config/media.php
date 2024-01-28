@@ -1,6 +1,6 @@
 <?php
 return [
     'room' => [
-        'limit-images' => 20,
+        'limit-images' => 200,
     ],
 ];

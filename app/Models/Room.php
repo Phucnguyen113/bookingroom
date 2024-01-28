@@ -99,7 +99,8 @@ class Room extends Model implements HasMedia, Filterable
                 'province' => $this->province,
                 'district' => $this->district,
             ]);
-        })->limit(config('paginate.room.related'))->get();
+        })
+        ->with('media')->limit(config('paginate.room.related'))->get();
 
         $this->relatedRooms = $relatedRooms;
 

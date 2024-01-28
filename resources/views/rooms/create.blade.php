@@ -53,13 +53,25 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="address">Province</label>
-                            <input type="text" class="form-control" name="province" placeholder="Enter province" id="province" value="{{old('province')}}">
+                            <!-- <input type="text" class="form-control" name="province" placeholder="Enter province" id="province" value="{{old('province')}}"> -->
+                            <select name="province" id="province" class="service" style="width:100%">
+                                @foreach($locations as $province)
+                                    <option value="{{$province['code']}}" @if($province['code'] == old('province')) selected @endif>{{$province['name']}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="address">District</label>
-                            <input type="text" class="form-control" name="district" placeholder="Enter district" id="district" value="{{old('district')}}">
+                            <!-- <input type="text" class="form-control" name="district" placeholder="Enter district" id="district" value="{{old('district')}}"> -->
+                            <select name="district" id="district" class="service" style="width:100%">
+                                @foreach(collect($locations)->first(function ($item) {
+                                        return $item['code'] == (old('province') ?? 1);
+                                    })['districts'] ?? [] as $district)
+                                    <option value="{{$district['code']}}" @if(old('district') == $district['code']) selected @endif>{{$district['name']}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -187,6 +199,7 @@
 @section('js')
 <script>
     $(function () {
+        const locations = JSON.parse('@json($locations)');
         // Summernote
         $('#summernote').summernote({
             height: 600
@@ -210,6 +223,21 @@
             if (Number(e.currentTarget.value) <=0) {
                 this.value = 1;
             }
+        });
+
+        $('#province').on('change', function (value, i) {
+            const provinceCode = this.value;
+            const province = locations.filter(function (item) {
+                return item.code == provinceCode;
+            });
+            $('#district').empty().trigger('change');
+            let option = '';
+            if (province?.[0]) {
+                province[0].districts.map(function (district) {
+                    option += `<option value="${district.code}">${district.name} </option>`
+                });
+            }
+            $('#district').append(option);
         });
     })
 </script>
