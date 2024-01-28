@@ -16,6 +16,8 @@
                 <th>Room</th>
                 <th>Province</th>
                 <th>District</th>
+                <th>Min price</th>
+                <th>Max price</th>
                 <th>Bedroom quantity</th>
                 <th>Bathroom quantity</th>
                 <th>Created At</th>
@@ -51,6 +53,8 @@
                         <td>
                             {{isset($district) ? $district['name'] : ''}}
                         </td>
+                        <td>{{$reservation->min_price}}</td>
+                        <td>{{$reservation->max_price}}</td>
                         <td>{{$reservation->bedroom}}</td>
                         <td>{{$reservation->bathroom}}</td>
                         <td>{{$reservation->created_at->format('Y-m-d H:i:s')}}</td>
