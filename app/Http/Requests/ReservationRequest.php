@@ -29,7 +29,8 @@ class ReservationRequest extends FormRequest
             'room_type' => 'nullable|integer|between:0,4',
             'min_price' => 'nullable|numeric|min:0',
             'max_price' => 'nullable|numeric|gt:min_price',
-            'location' => 'nullable|string',
+            'province' => 'nullable|integer',
+            'district' => 'nullable|integer',
             'bedroom' => 'nullable|integer|min:1',
             'bathroom' => 'nullable|integer|min:1',
         ];

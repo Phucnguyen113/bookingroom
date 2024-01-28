@@ -32,7 +32,8 @@ class ReservationController extends Controller
             'room_type',
             'min_price',
             'max_price',
-            'location',
+            'province',
+            'district',
             'bedroom',
             'bathroom',
         ]));
