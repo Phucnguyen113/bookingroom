@@ -14,18 +14,45 @@
                 <th>Email</th>
                 <th>Phone</th>
                 <th>Room</th>
+                <th>Province</th>
+                <th>District</th>
+                <th>Bedroom quantity</th>
+                <th>Bathroom quantity</th>
                 <th>Created At</th>
                 <!-- <th style="width: 200px">Action</th> -->
             </tr>
             </thead>
             <tbody>
                 @foreach($data as $key => $reservation)
+                    @php
+                        $province = $reservation->province ? collect($locations)->first(function ($province) use ($reservation) {
+                            return $province['code'] === $reservation->province;
+                        }) : null;
+
+                        if ($province && $reservation->district) {
+                            $district = collect($province['districts'])->first(function ($item) use ($reservation) {
+                                return $item['code'] === $reservation->district;
+                            });
+                        }
+                    @endphp
                     <tr>
                         <td>{{$key + 1}}</td>
                         <td>{{$reservation->name}}</td>
                         <td>{{$reservation->email}}</td>
                         <td>{{$reservation->phone}}</td>
-                        <td><a href="{{route('rooms.show', $reservation->room->id)}}">{{$reservation->room->name}}</a></td>
+                        <td>
+                            @if($reservation->room)
+                                <a href="{{route('rooms.show', $reservation->room->id)}}">{{$reservation->room->name}}</a>
+                            @endif
+                        </td>
+                        <td>
+                            {{$province ? $province['name'] : ''}}
+                        </td>
+                        <td>
+                            {{isset($district) ? $district['name'] : ''}}
+                        </td>
+                        <td>{{$reservation->bedroom}}</td>
+                        <td>{{$reservation->bathroom}}</td>
                         <td>{{$reservation->created_at->format('Y-m-d H:i:s')}}</td>
                         <td>
                             <!-- <a href="{{route('reservations.edit', $reservation->id)}}" class="btn btn-primary edit-btn mr-10">

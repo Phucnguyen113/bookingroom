@@ -18,7 +18,8 @@ class ReservationController extends Controller
     public function index()
     {
         $data = $this->reservationService->reservations();
-        return view('reservations.index', compact('data'));
+        $locations = $this->reservationService->getLocations();
+        return view('reservations.index', compact('data', 'locations'));
     }
 
     /**
