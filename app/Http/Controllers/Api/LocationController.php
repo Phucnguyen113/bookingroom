@@ -14,4 +14,9 @@ class LocationController extends Controller
     {
         return response()->json($this->getLocations());
     }
+
+    public function search(string|int $code)
+    {
+        return response()->json($this->getLocation($code));
+    }
 }

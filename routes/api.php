@@ -42,6 +42,7 @@ Route::get('meta-info', [MetaInfoController::class, 'index']);
 Route::get('home', [HomeController::class, 'index']);
 
 Route::get('locations', [LocationController::class, 'index']);
+Route::get('locations/{code}', [LocationController::class, 'search']);
 Route::get('link', function () {
     Artisan::call('storage:link');
 });

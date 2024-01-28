@@ -2,8 +2,6 @@
 namespace App\Http\Services\Traits;
 
 use App\Models\Province;
-use Illuminate\Support\Facades\Http;
-
 trait Location {
     public function getLocations()
     {
@@ -14,5 +12,8 @@ trait Location {
         } 
     }
 
-
+    public function getLocation(string|int $code): Province|null
+    {
+        return Province::where('code', $code)->with('districts')->first();
+    }
 }
