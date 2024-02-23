@@ -28,6 +28,9 @@ class BlogRequest extends FormRequest
                 'title' => 'required|string|max:255',
                 'content' => 'required|string',
                 'description' => 'required|string|max:255',
+                'en_title' => 'required|string|max:255',
+                'en_content' => 'required|string',
+                'en_description' => 'required|string|max:255',
                 'thumbnail' => 'nullable|image',
                 'category' => 'required|array',
                 'category.*' => [
@@ -42,6 +45,9 @@ class BlogRequest extends FormRequest
             'title' => 'required|string|max:255',
             'content' => 'required|string',
             'description' => 'required|string|max:255',
+            'en_title' => 'required|string|max:255',
+            'en_content' => 'required|string',
+            'en_description' => 'required|string|max:255',
             'thumbnail' => 'required|image',
             'category' => 'required|array',
             'category.*' => [

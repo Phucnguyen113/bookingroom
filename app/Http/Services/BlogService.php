@@ -46,6 +46,11 @@ class BlogService implements BlogServiceContract {
     public function store(BlogRequest $request)
     {
         $blog = $this->blogRepository->create($request->only(['title', 'description','content']));
+        $blog->translate()->create([
+            'title' => $request->en_title,
+            'description' => $request->en_description,
+            'content' => $request->en_content,
+        ]);
         $blog->addMedia($request->thumbnail)->toMediaCollection(MediaCollection::BlogThumbnail);
         $blog->attachTags($request->tags, Tags::Blog);
         $blog->categories()->attach($request->category);
