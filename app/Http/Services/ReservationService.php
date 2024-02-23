@@ -3,11 +3,12 @@ namespace App\Http\Services;
 
 use App\Http\Contracts\Repositories\ReservationRepositoryContract;
 use App\Http\Contracts\Services\ReservationServiceContract;
+use App\Http\Services\Traits\ForwardCallToEloquentRepository;
 use App\Http\Services\Traits\Location;
 
 class ReservationService implements ReservationServiceContract
 {
-    use Location;
+    use Location, ForwardCallToEloquentRepository;
 
     public function __construct(protected ReservationRepositoryContract $reservationRepository)
     {
@@ -16,7 +17,7 @@ class ReservationService implements ReservationServiceContract
 
     public function reservations()
     {
-        return $this->reservationRepository->with(['room'])->paginate(config('paginate.default'));
+        return $this->reservationRepository->with(['room'])->latest()->paginate(config('paginate.default'));
     }
 
     public function delete(string $id)

@@ -42,7 +42,6 @@
                                 <div class="form-group">
                                     <label for="price">Unit</label><br>
                                     <select name="unit" id="unit" style="width:100%">
-                                        <option value="day" @if($room->unit === 'day') selected @endif>Day</option>
                                         <option value="month" @if($room->unit === 'month') selected @endif>Month</option>
                                         <option value="year" @if($room->unit === 'year') selected @endif>Year</option>
                                     </select>

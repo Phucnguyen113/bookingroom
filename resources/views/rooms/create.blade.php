@@ -40,8 +40,7 @@
                                 <div class="form-group">
                                     <label for="price">Unit</label><br>
                                     <select name="unit" id="unit" style="width:100%">
-                                        <option value="day" selected>Day</option>
-                                        <option value="month">Month</option>
+                                        <option value="month" selected>Month</option>
                                         <option value="year">Year</option>
                                     </select>
                                 </div>

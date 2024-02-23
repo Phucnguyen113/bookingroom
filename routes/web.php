@@ -47,6 +47,7 @@ Route::group([
     Route::resource('categories', CategoryController::class);
     Route::resource('users', UserController::class)->middleware(AdminAdminLoginedMiddleware::class);
     Route::resource('reservations', ReservationController::class);
+    Route::post('reservations/mark-supported/{id}', [ReservationController::class, 'markSupported']);
     // Route::resource('customer-contacts', CustomerContactController::class)->only(['index']);
     // Route::resource('customer-feedbacks', CustomerFeedbackController::class)->only(['index']);
 
