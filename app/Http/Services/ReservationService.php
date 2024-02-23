@@ -18,4 +18,9 @@ class ReservationService implements ReservationServiceContract
     {
         return $this->reservationRepository->with(['room'])->paginate(config('paginate.default'));
     }
+
+    public function delete(string $id)
+    {
+        return $this->reservationRepository->where('id', $id)->delete();
+    }
 }

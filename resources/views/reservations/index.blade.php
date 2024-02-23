@@ -21,7 +21,7 @@
                 <th>Bedroom quantity</th>
                 <th>Bathroom quantity</th>
                 <th>Created At</th>
-                <!-- <th style="width: 200px">Action</th> -->
+                <th style="width: 200px">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -61,10 +61,10 @@
                         <td>
                             <!-- <a href="{{route('reservations.edit', $reservation->id)}}" class="btn btn-primary edit-btn mr-10">
                                 <i class="fas fa-edit" aria-hidden="true"></i>
-                            </a>
+                            </a>-->
                             <a href="#" class="btn btn-danger del-btn" onclick="deleteReservation('{{$reservation->id}}')">
                                 <i class="fas fa-trash" aria-hidden="true"></i>
-                            </a> -->
+                            </a>
                         </td>
                     </tr>
                 @endforeach

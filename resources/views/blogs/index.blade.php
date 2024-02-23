@@ -24,7 +24,7 @@
                         <td>{{$key + 1}}</td>
                         <td>{{$blog->title}}</td>
                         <td>
-                            <a class="btn btn-warning" href="{{route('blogs.show', $blog->id)}}">
+                            <a class="btn btn-warning" href="https://ninehousing.com.vn/post/{{$blog->id}}" target="_blank">
                                 <i class="far fa-eye"></i>
                             </a>
 
