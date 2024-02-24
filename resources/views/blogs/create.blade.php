@@ -18,19 +18,19 @@
             @csrf
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="title">Title</label>
                             <input type="text" class="form-control" name="title" placeholder="Enter title" value="{{old('title')}}">
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="title">En Title</label>
                             <input type="text" class="form-control" name="en_title" placeholder="Enter english title" value="{{old('en_title')}}">
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -66,13 +66,13 @@
                 </div>
                 <div class="form-group">
                     <label for="content">Description</label><br>
-                    <textarea class="summernote" name="description">
+                    <textarea class="description" name="description" >
                         {{old('description')}}
                     </textarea>
                 </div>
                 <div class="form-group">
                     <label for="content">En Description</label><br>
-                    <textarea class="summernote" name="en_description">
+                    <textarea class="description" name="en_description">
                         {{old('en_description')}}
                     </textarea>
                 </div>
@@ -83,7 +83,7 @@
                     </textarea>
                 </div>
                 <div class="form-group">
-                    <label for="content">Content</label><br>
+                    <label for="content">En Content</label><br>
                     <textarea class="summernote" name="en_content">
                         {{old('en_content')}}
                     </textarea>
@@ -102,7 +102,19 @@
     $(function () {
         // Summernote
         $('.summernote').summernote()
-
+        $('.description').summernote({
+                toolbar: [
+                [ 'style', [ 'style' ] ],
+                [ 'font', [ 'bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear'] ],
+                [ 'fontname', [ 'fontname' ] ],
+                [ 'fontsize', [ 'fontsize' ] ],
+                [ 'color', [ 'color' ] ],
+                [ 'para', [ 'ol', 'ul', 'paragraph', 'height' ] ],
+                [ 'table', [ 'table' ] ],
+                [ 'insert', [ 'link'] ],
+                [ 'view', [ 'undo', 'redo', 'fullscreen', 'codeview', 'help' ] ]
+            ]
+        })
         $('.category').select2();
 
         $('.tags').select2({

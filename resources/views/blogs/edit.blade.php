@@ -19,13 +19,19 @@
             @method('PUT')
             <div class="card-body">
                <div class="row">
-                <div class="col-md-6">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="title">Title</label>
                             <input type="text" class="form-control" name="title" placeholder="Enter title" value="{{$blog->title}}">
                         </div>
                     </div>
                     <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="title">En Title</label>
+                            <input type="text" class="form-control" name="en_title" placeholder="Enter title" value="{{$blog->translate?->title}}">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -67,13 +73,25 @@
                 </div>
                 <div class="form-group">
                     <label for="content">Description</label><br>
-                    <textarea class="summernote" id="description" name="description">
+                    <textarea class="description" id="description" name="description">
+                        {{old('content')}}
+                    </textarea>
+                </div>
+                <div class="form-group">
+                    <label for="content">En Description</label><br>
+                    <textarea class="description" id="en_description" name="en_description">
                         {{old('content')}}
                     </textarea>
                 </div>
                 <div class="form-group">
                     <label for="content">Content</label><br>
                     <textarea class="summernote" id="content" name="content">
+
+                    </textarea>
+                </div>
+                <div class="form-group">
+                    <label for="content">En Content</label><br>
+                    <textarea class="summernote" id="en_content" name="en_content">
                       
                     </textarea>
                 </div>
@@ -94,7 +112,35 @@
             height:450
         })
         $('#content').summernote('code', '{!!$blog->content!!}')
+        $('#en_content').summernote('code', '{!!$blog->translate?->content!!}')
         $('#description').summernote('code', '{!!$blog->description!!}')
+        $('#description').summernote({
+            toolbar: [
+                [ 'style', [ 'style' ] ],
+                [ 'font', [ 'bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear'] ],
+                [ 'fontname', [ 'fontname' ] ],
+                [ 'fontsize', [ 'fontsize' ] ],
+                [ 'color', [ 'color' ] ],
+                [ 'para', [ 'ol', 'ul', 'paragraph', 'height' ] ],
+                [ 'table', [ 'table' ] ],
+                [ 'insert', [ 'link'] ],
+                [ 'view', [ 'undo', 'redo', 'fullscreen', 'codeview', 'help' ] ]
+            ]
+        })
+        $('#en_description').summernote('code', '{!!$blog->translate?->description!!}')
+        $('#en_description').summernote({
+            toolbar: [
+                [ 'style', [ 'style' ] ],
+                [ 'font', [ 'bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear'] ],
+                [ 'fontname', [ 'fontname' ] ],
+                [ 'fontsize', [ 'fontsize' ] ],
+                [ 'color', [ 'color' ] ],
+                [ 'para', [ 'ol', 'ul', 'paragraph', 'height' ] ],
+                [ 'table', [ 'table' ] ],
+                [ 'insert', [ 'link'] ],
+                [ 'view', [ 'undo', 'redo', 'fullscreen', 'codeview', 'help' ] ]
+            ]
+        })
         $('.category').select2();
 
         $('.tags').select2({

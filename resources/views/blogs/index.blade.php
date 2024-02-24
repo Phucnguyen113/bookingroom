@@ -15,6 +15,7 @@
             <tr>
                 <th style="width: 10px">#</th>
                 <th>Title</th>
+                <th>En Title</th>
                 <th style="width: 200px">Action</th>
             </tr>
             </thead>
@@ -23,6 +24,7 @@
                     <tr>
                         <td>{{$key + 1}}</td>
                         <td>{{$blog->title}}</td>
+                        <td>{{$blog->translate?->title}}</td>
                         <td>
                             <a class="btn btn-warning" href="https://ninehousing.com.vn/post/{{$blog->id}}" target="_blank">
                                 <i class="far fa-eye"></i>

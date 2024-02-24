@@ -60,6 +60,7 @@ class BlogService implements BlogServiceContract {
     {
         $blog = $this->blogRepository->where('id', $id)->firstOrFail();
         $blog->update($request->only('title', 'description', 'content'));
+        $this->updateOrCreateTranslate($blog, $request);
         if ($request->hasFile('thumbnail')) {
             $blog->addMedia($request->file('thumbnail'))->toMediaCollection(MediaCollection::BlogThumbnail);
         }
@@ -109,5 +110,23 @@ class BlogService implements BlogServiceContract {
     public function getBlogsHomePage(): Collection
     {
         return $this->blogRepository->getBlogsHomePage();
+    }
+
+    public function updateOrCreateTranslate(Blog $blog, BlogRequest $request): void
+    {
+        $translate = $blog->translate;
+        if ($translate) {
+            $translate->update([
+                'title' => $request->en_title,
+                'description' => $request->en_description,
+                'content' => $request->en_content,
+            ]);
+        } else {
+            $blog->translate()->create([
+                'title' => $request->en_title,
+                'description' => $request->en_description,
+                'content' => $request->en_content,
+            ]);
+        }
     }
 }
