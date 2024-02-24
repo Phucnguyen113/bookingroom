@@ -29,6 +29,13 @@
                     </div>
 
                     <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="name">En Name</label>
+                            <input type="text" class="form-control" name="en_name" id="en_name" placeholder="Enter english name" value="{{old('en_name')}}">
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -49,7 +56,7 @@
                     </div>
                </div>
                <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="address">Province</label>
                             <!-- <input type="text" class="form-control" name="province" placeholder="Enter province" id="province" value="{{old('province')}}"> -->
@@ -60,7 +67,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="address">District</label>
                             <!-- <input type="text" class="form-control" name="district" placeholder="Enter district" id="district" value="{{old('district')}}"> -->
@@ -73,10 +80,16 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="address">Address</label>
                             <input type="text" class="form-control" name="address" placeholder="Enter address" id="address" value="{{old('address')}}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="address">En Address</label>
+                            <input type="text" class="form-control" name="en_address" placeholder="Enter english address" id="en_address" value="{{old('en_address')}}">
                         </div>
                     </div>
                </div>
@@ -158,8 +171,14 @@
                 </div>
                 <div class="form-group">
                     <label for="description">Description</label><br>
-                    <textarea id="summernote" name="description">
+                    <textarea class="summernote" name="description">
                         {{old('description')}}
+                    </textarea>
+                </div>
+                <div class="form-group">
+                    <label for="description">En Description</label><br>
+                    <textarea class="summernote" name="en_description">
+                        {{old('en_description')}}
                     </textarea>
                 </div>
                 <div class="row">
@@ -200,7 +219,7 @@
     $(function () {
         const locations = JSON.parse('@json($locations)');
         // Summernote
-        $('#summernote').summernote({
+        $('.summernote').summernote({
             height: 600
         })
         $('#unit').select2({

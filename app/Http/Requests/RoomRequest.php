@@ -26,11 +26,14 @@ class RoomRequest extends FormRequest
         if ($this->method() === 'PUT') {
             return [
                 'name' => ['required', 'string', 'max:255', Rule::unique('rooms', 'name')->ignore($this->room)],
+                'en_name' => ['required', 'string', 'max:255'],
                 'price' => 'required|integer',
                 'province' => 'required|string',
                 'district' => 'required|string',
                 'address' => 'required|string',
+                'en_address' => 'required|string',
                 'description' => 'required|string',
+                'en_description' => 'required|string',
                 'images' => 'nullable|array|max:'. config('media.room.limit-images'),
                 'images.*' => 'required|image',
                 'thumbnail' => 'nullable|image',
@@ -56,11 +59,14 @@ class RoomRequest extends FormRequest
 
         return [
             'name' => 'required|string|max:255,unique:rooms,name',
+            'en_name' => ['required', 'string', 'max:255'],
             'price' => 'required|integer',
             'province' => 'required|string',
             'district' => 'required|string',
             'address' => 'required|string',
+            'en_address' => 'required|string',
             'description' => 'required|string',
+            'en_description' => 'required|string',
             'images' => 'required|array|max:'. config('media.room.limit-images'),
             'images.*' => 'required|image',
             'thumbnail' => 'required|image',

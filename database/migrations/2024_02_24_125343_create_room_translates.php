@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('blog_translates', function (Blueprint $table) {
+        Schema::create('room_translates', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('blog_id')->unsigned();
-            $table->string('lang')->default('EN');
-            $table->string('title');
-            $table->text('description');
-            $table->longText('content');
+            $table->bigInteger('room_id');
+            $table->string('name');
+            $table->text('address');
+            $table->longText('description');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('blog_translates');
+        Schema::dropIfExists('room_translates');
     }
 };

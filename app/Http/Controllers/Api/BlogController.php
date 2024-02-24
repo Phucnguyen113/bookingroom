@@ -42,7 +42,7 @@ class BlogController extends Controller
         $blog = $this->blogService->model()->with([
             'categories',
             'media',
-        ])->find($id);
+        ])->findOrFail($id);
 
         return new BlogResource($blog);
     }

@@ -21,14 +21,14 @@ class BlogResource extends JsonResource
             'description' => $this->description,
             'content' => $this->content,
             'categories' => $this->categories->map(fn ($item) => ['id' => $item->id, 'name' => $item->name]),
-            'thumbnail' => $this->thumbnail->getUrl(),
+            'thumbnail' => $this->thumbnail?->getUrl(),
             'created_at' => $this->created_at,
-            'related_blogs' => $this->relatedBlogs(),
-            'en' => [
+            'en' => $this->when($this->translate, [
                 'title' => $this->translate?->title,
                 'description' => $this->translate?->description,
                 'content' => $this->translate?->content,
-            ],
+            ]),
+            'related_blogs' => $this->relatedBlogs(),
         ];
     }
 
@@ -43,11 +43,11 @@ class BlogResource extends JsonResource
                 'content' => $blog->content,
                 'categories' => $blog->categories->map(fn ($item) => ['id' => $item->id, 'name' => $item->name]),
                 'thumbnail' => $blog->thumbnail?->getUrl(),
-                'en' => [
+                'en' => $this->when($blog->translate, [
                     'title' => $blog->translate?->title,
                     'description' => $blog->translate?->description,
                     'content' => $blog->translate?->content,
-                ],
+                ]),
                 'created_at' => $blog->created_at,
             ];
         });

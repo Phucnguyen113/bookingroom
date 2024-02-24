@@ -95,6 +95,7 @@ class BlogService implements BlogServiceContract {
         $blog = $this->blogRepository->where('id', $id)->first();
         if ($blog) {
             $blog->categories()->detach();
+            $blog->translate()->delete();
             $blog->delete();
         }
     }

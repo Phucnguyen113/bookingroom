@@ -39,6 +39,11 @@ class RoomResource extends JsonResource
             'categories' => $this->whenLoaded('categories', $this->categories->map(fn ($item) => ['id' => $item->id, 'name' => $item->name]), []),
             'tags' => $this->whenLoaded('tags', $this->loadTags(), []),
             'customer_feedbacks' => $this->whenLoaded('customerFeedbacks', $this->loadCustomerFeedbacks(), []),
+            'en' => $this->when($this->translate, [
+                'name' => $this->translate?->name,
+                'description' => $this->translate?->description,
+                'address' => $this->translate?->address,
+            ]),
             'related_rooms' => $this->when($relatedRooms, $relatedRooms),
         ];
     }

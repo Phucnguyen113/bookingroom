@@ -29,8 +29,14 @@
                             <input type="text" class="form-control" name="name" id="name" placeholder="Enter name" value="{{$room->name}}">
                         </div>
                     </div>
-
                     <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="name">En Name</label>
+                            <input type="text" class="form-control" name="en_name" id="en_name" placeholder="Enter english name" value="{{$room->translate?->name}}">
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -51,7 +57,7 @@
                     </div>
                </div>
                <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="address">Province</label>
                             <!-- <input type="text" class="form-control" name="province" placeholder="Enter province" id="province" value="{{$room->province}}"> -->
@@ -62,7 +68,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="address">District</label>
                             <!-- <input type="text" class="form-control" name="district" placeholder="Enter district" id="district" value="{{$room->district}}"> -->
@@ -75,10 +81,16 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="address">Address</label>
                             <input type="text" class="form-control" name="address" placeholder="Enter address" id="address" value="{{$room->address}}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="address">En Address</label>
+                            <input type="text" class="form-control" name="en_address" placeholder="Enter english address" id="en_address" value="{{$room->translate?->address}}">
                         </div>
                     </div>
                </div>
@@ -174,6 +186,13 @@
 
                     </textarea>
                 </div>
+
+                <div class="form-group">
+                    <label for="en_description">En Description</label><br>
+                    <textarea id="en_summernote" name="en_description">
+
+                    </textarea>
+                </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -216,6 +235,12 @@
             height: 600
         })
         $('#summernote').summernote('code', '{!!$room->description!!}');
+
+        $('#en_summernote').summernote({
+            height: 600
+        })
+        $('#en_summernote').summernote('code', '{!!$room->translate?->description!!}');
+
 
         $('#unit').select2({
             theme: 'bootstrap4'

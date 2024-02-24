@@ -49,7 +49,11 @@ class RoomService implements RoomServiceContract
             'acreage',
             'room_type',
         ]));
-
+        $room->translate()->create([
+            'name' => $request->en_name,
+            'description' => $request->en_description,
+            'address' => $request->en_address,
+        ]);
         $room->addMedia($request->file('thumbnail'))->toMediaCollection(MediaCollection::RoomThumbnail);
         foreach ($request->images as $key => $image) {
             $room->addMedia($image)->toMediaCollection(MediaCollection::RoomImages);
@@ -84,6 +88,8 @@ class RoomService implements RoomServiceContract
             'acreage',
             'room_type'
         ]));
+
+        $this->updateOrCreateTranslate($room, $request);
 
         if ($request->hasFile('thumbnail')) {
             $room->addMedia($request->file('thumbnail'))->toMediaCollection(MediaCollection::RoomThumbnail);
@@ -154,5 +160,23 @@ class RoomService implements RoomServiceContract
         ]);
 
         return $room;
+    }
+
+    public function updateOrCreateTranslate(Room $room, RoomRequest $request)
+    {
+        $translate = $room->translate;
+        if ($translate) {
+            $translate->update([
+                'name' => $request->en_name,
+                'description' => $request->en_description,
+                'address' => $request->en_address,
+            ]);
+        } else {
+            $room->translate()->create([
+                'name' => $request->en_name,
+                'description' => $request->en_description,
+                'address' => $request->en_address,
+            ]);
+        }
     }
 }

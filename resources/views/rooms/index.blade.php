@@ -14,7 +14,10 @@
             <thead>
             <tr>
                 <th style="width: 10px">#</th>
-                <th>Title</th>
+                <th>Name</th>
+                <th>En Name</th>
+                <th>Price</th>
+                <th>Total view</th>
                 <th style="width: 200px">Action</th>
             </tr>
             </thead>
@@ -23,6 +26,9 @@
                     <tr>
                         <td>{{$key + 1}}</td>
                         <td>{{$room->name}}</td>
+                        <td>{{$room->translate?->name}}</td>
+                        <td>{{$room->price}}$ / {{$room->unit}}</td>
+                        <td>{{$room->view_count ?? 0}}</td>
                         <td>
                             <a class="btn btn-warning" href="{{route('rooms.show', $room->id)}}">
                                 <i class="far fa-eye"></i>

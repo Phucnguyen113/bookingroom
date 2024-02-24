@@ -38,6 +38,8 @@ class Room extends Model implements HasMedia, Filterable
         'room_type',
     ];
 
+    protected $with = ['translate'];
+
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection(MediaCollection::RoomThumbnail)->singleFile();
@@ -86,6 +88,11 @@ class Room extends Model implements HasMedia, Filterable
     public function customerFeedbacks()
     {
         return $this->hasMany(CustomerFeedback::class, 'room_id', 'id');
+    }
+
+    public function translate()
+    {
+        return $this->hasOne(RoomTranslate::class);
     }
 
     public function relatedRooms()
