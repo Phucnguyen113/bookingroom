@@ -41,14 +41,15 @@ Route::group([
     Route::get('edit-password', [UserController::class, 'editPassword'])->name('edit-password');
     Route::post('update-password', [UserController::class, 'updatePassword'])->name('update-password');
 
-    Route::resource('tags', MetaTagController::class);
+    // Route::resource('tags', MetaTagController::class);
     Route::resource('blogs', BlogController::class);
     Route::resource('rooms', RoomController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('users', UserController::class)->middleware(AdminAdminLoginedMiddleware::class);
     Route::resource('reservations', ReservationController::class);
-    Route::resource('customer-contacts', CustomerContactController::class)->only(['index']);
-    Route::resource('customer-feedbacks', CustomerFeedbackController::class)->only(['index']);
+    Route::post('reservations/mark-supported/{id}', [ReservationController::class, 'markSupported']);
+    // Route::resource('customer-contacts', CustomerContactController::class)->only(['index']);
+    // Route::resource('customer-feedbacks', CustomerFeedbackController::class)->only(['index']);
 
     Route::group(['prefix' => 'meta-info'], function () {
         Route::get('info', [MetaInfoController::class, 'index'])->name('metaInfo.index');

@@ -11,8 +11,10 @@ use BenSampo\Enum\Enum;
  */
 final class RoomPriceFilter extends Enum
 {
-    const Lessthan50 = [1, 50];
+    const LessThan50 = [1, 50];
     const About50To100 = [50, 100];
     const About100To200 = [100, 200];
-    const GretherThan200 = [200, 99999];
+    const About200To500 = [200, 500];
+    const About500To1000 = [500, 1000];
+    const GreaterThan1000 = [1000, 99999];
 }

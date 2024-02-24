@@ -21,7 +21,7 @@
                 <th>Bedroom quantity</th>
                 <th>Bathroom quantity</th>
                 <th>Created At</th>
-                <!-- <th style="width: 200px">Action</th> -->
+                <th style="width: 200px">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -38,7 +38,10 @@
                         }
                     @endphp
                     <tr>
-                        <td>{{$key + 1}}</td>
+                        <td class="first-row">
+                            {{$key + 1}}
+                            <input type="checkbox" attr-id="{{$reservation->id}}" class="is_supported" @if($reservation->is_supported) checked @endif>
+                        </td>
                         <td>{{$reservation->name}}</td>
                         <td>{{$reservation->email}}</td>
                         <td>{{$reservation->phone}}</td>
@@ -61,10 +64,10 @@
                         <td>
                             <!-- <a href="{{route('reservations.edit', $reservation->id)}}" class="btn btn-primary edit-btn mr-10">
                                 <i class="fas fa-edit" aria-hidden="true"></i>
-                            </a>
+                            </a>-->
                             <a href="#" class="btn btn-danger del-btn" onclick="deleteReservation('{{$reservation->id}}')">
                                 <i class="fas fa-trash" aria-hidden="true"></i>
-                            </a> -->
+                            </a>
                         </td>
                     </tr>
                 @endforeach
@@ -83,6 +86,11 @@
     }
     .del-btn {
         display: inline-block;
+    }
+    .first-row {
+        display: flex;
+        justify-content: space-between;
+        min-width: 50px;
     }
 </style>
 @endsection
@@ -117,7 +125,39 @@
     }
 
     $(document).ready(function () {
-        
+        $('.is_supported').on('change', function (event) {
+            event.preventDefault();
+            const id = $(this).attr('attr-id');
+            const supported = $(this).is(":checked");
+            let title = 'Do you want to mark this reservation was supported ?';
+
+            if (!supported) {
+                title = 'Do you want to mark this reservation wasn\'t supported yet ?';
+            }
+          
+            const url = `${prefix}/mark-supported/${id}`;
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {_token: csrf, supported: $(this).is(":checked")},
+                dataType: "json",
+                success: function (response) {
+                    if (response) {
+                        if (supported) {
+                            Swal.fire({
+                                title: 'You mark this reservation was supported success',
+                                icon: 'success',
+                            })
+                        } else {
+                            Swal.fire({
+                                title: 'You mark this reservation wasn\'t supported yet success',
+                                icon: 'success',
+                            })
+                        }
+                    }
+                }
+            });
+        });
     });
 
 </script>

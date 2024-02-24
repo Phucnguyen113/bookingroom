@@ -19,6 +19,7 @@ class Reservation extends Model
         'max_price',
         'province',
         'district',
+        'is_supported',
         'bedroom',
         'bathroom',
     ];

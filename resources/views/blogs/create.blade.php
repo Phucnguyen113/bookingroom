@@ -18,10 +18,16 @@
             @csrf
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label for="title">Title</label>
                             <input type="text" class="form-control" name="title" placeholder="Enter title" value="{{old('title')}}">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="title">En Title</label>
+                            <input type="text" class="form-control" name="en_title" placeholder="Enter english title" value="{{old('en_title')}}">
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -61,13 +67,25 @@
                 <div class="form-group">
                     <label for="content">Description</label><br>
                     <textarea class="summernote" name="description">
-                        {{old('content')}}
+                        {{old('description')}}
+                    </textarea>
+                </div>
+                <div class="form-group">
+                    <label for="content">En Description</label><br>
+                    <textarea class="summernote" name="en_description">
+                        {{old('en_description')}}
                     </textarea>
                 </div>
                 <div class="form-group">
                     <label for="content">Content</label><br>
                     <textarea class="summernote" name="content">
                         {{old('content')}}
+                    </textarea>
+                </div>
+                <div class="form-group">
+                    <label for="content">Content</label><br>
+                    <textarea class="summernote" name="en_content">
+                        {{old('en_content')}}
                     </textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>

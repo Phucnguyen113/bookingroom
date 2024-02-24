@@ -53,15 +53,14 @@
     </ul>
   </li>
 
-  <li class="nav-item">
+  <!-- <li class="nav-item">
     <a href="{{request()->is('tags') ? '#' : url('/tags')}}" class="nav-link {{request()->is('tags*') ? 'active' : ''}}">
       <i class="nav-icon fas fa-tag"></i>
       <p>
         Tags
-        <!-- <span class="right badge badge-danger">New</span> -->
       </p>
     </a>
-  </li>
+  </li> -->
   <li class="nav-item">
     <a href="{{request()->is('categories') ? '#' : url('/categories')}}" class="nav-link {{request()->is('categories*') ? 'active' : ''}}">
     <i class="nav-icon fas fa-tasks"></i>
@@ -95,26 +94,6 @@
       <i class="fas fa-envelope"></i>
       <p>
         Reservation
-        <!-- <span class="right badge badge-danger">New</span> -->
-      </p>
-    </a>
-  </li>
-
-  <li class="nav-item">
-    <a href="{{request()->is('customer-feedbacks') ? '#' : route('customer-feedbacks.index')}}" class="nav-link {{request()->is('customer-feedbacks*') ? 'active' : ''}}">
-      <i class="fas fa-comments"></i>
-      <p>
-        Customer feedback
-        <!-- <span class="right badge badge-danger">New</span> -->
-      </p>
-    </a>
-  </li>
-
-  <li class="nav-item">
-    <a href="{{request()->is('customer-contacts') ? '#' : route('customer-contacts.index')}}" class="nav-link {{request()->is('customer-contacts*') ? 'active' : ''}}">
-      <i class="far fa-address-book"></i>
-      <p>
-        Customer contact
         <!-- <span class="right badge badge-danger">New</span> -->
       </p>
     </a>

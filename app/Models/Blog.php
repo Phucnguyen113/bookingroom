@@ -25,7 +25,7 @@ class Blog extends Model implements HasMedia, Filterable
         'description',
         'content',
     ];
-
+    protected $with = ['translate'];
     public function registerFilter()
     {
         $this->addFilter(new BlogListFilter);
@@ -61,5 +61,10 @@ class Blog extends Model implements HasMedia, Filterable
                 });
             })->with(['media', 'categories'])
             ->limit(config('paginate.blog.related'))->get();
+    }
+
+    public function translate()
+    {
+        return $this->hasOne(BlogTranslate::class);
     }
 }

@@ -20,7 +20,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        $rooms = $this->roomService->getRoomHighestView(config('paginate.home.room'), function (Builder $query) {
+        $rooms = $this->roomService->getRoomHighestView(builder:function (Builder $query) {
             $query->with([
                 'media',
                 'tags',

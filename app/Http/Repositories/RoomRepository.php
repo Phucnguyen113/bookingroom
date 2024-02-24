@@ -28,7 +28,10 @@ class RoomRepository extends EloquentRepository implements RoomRepositoryContrac
             $builder($query);
         }
 
-        return $query->limit($limit ?? config('paginate.default'))
-            ->get();
+        if ($limit) {
+            $query->limit($limit);
+        }
+
+        return $query->get();
     }
 }
