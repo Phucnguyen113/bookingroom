@@ -85,7 +85,7 @@ class RoomListFilter extends Filters
     {
         $request = $this->request;
         $model = $builder->getModel();
-        foreach ($request['sortDdesc'] ?? [] as $key => $column) {
+        foreach ($request['sortDesc'] ?? [] as $key => $column) {
             $builder->orderByDesc($model->qualifyColumn($column));
         }
         foreach ($request['sortAsc'] ?? [] as $key => $column) {

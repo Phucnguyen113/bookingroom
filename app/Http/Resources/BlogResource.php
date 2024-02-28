@@ -15,32 +15,28 @@ class BlogResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $en = $request->lang === 'en';
         return [
             'id' => $this->id,
-            'title' => $this->title,
-            'description' => $this->description,
-            'content' => $this->content,
+            'title' => $this->when($en, $this->translate?->title, $this->title),
+            'description' => $this->when($en, $this->translate?->description, $this->description),
+            'content' => $this->when($en, $this->translate?->content, $this->content),
             'categories' => $this->categories->map(fn ($item) => ['id' => $item->id, 'name' => $item->name]),
             'thumbnail' => $this->thumbnail?->getUrl(),
             'created_at' => $this->created_at,
-            'en' => $this->when($this->translate, [
-                'title' => $this->translate?->title,
-                'description' => $this->translate?->description,
-                'content' => $this->translate?->content,
-            ]),
-            'related_blogs' => $this->relatedBlogs(),
+            'related_blogs' => $this->relatedBlogs($en),
         ];
     }
 
-    public function relatedBlogs()
+    public function relatedBlogs($en)
     {
         $relatedBlogs = $this->resource->relatedBlogs();
-        return $relatedBlogs->map(function (Blog $blog) {
+        return $relatedBlogs->map(function (Blog $blog) use ($en) {
             return [
                 'id' => $blog->id,
-                'title' => $blog->title,
-                'description' => $blog->description,
-                'content' => $blog->content,
+                'title' => $this->when($en, $blog->translate?->title, $blog->title),
+                'description' => $this->when($en, $blog->translate?->description, $blog->description),
+                'content' => $this->when($en, $blog->translate?->content, $blog->content),
                 'categories' => $blog->categories->map(fn ($item) => ['id' => $item->id, 'name' => $item->name]),
                 'thumbnail' => $blog->thumbnail?->getUrl(),
                 'en' => $this->when($blog->translate, [

@@ -19,11 +19,12 @@ class RoomResource extends JsonResource
     public function toArray(Request $request): array
     {
         $relatedRooms = $this->relatedRooms();
+        $en = $request->lang === 'en';
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'address' => $this->address,
-            'description' => $this->description,
+            'name' => $this->when($en, $this->translate?->name, $this->name),
+            'address' => $this->when($en, $this->translate?->address, $this->address),
+            'description' => $this->when($en, $this->translate?->description, $this->description),
             'price' => $this->price,
             'unit' => $this->unit,
             'province' => $this->province,
@@ -39,11 +40,6 @@ class RoomResource extends JsonResource
             'categories' => $this->whenLoaded('categories', $this->categories->map(fn ($item) => ['id' => $item->id, 'name' => $item->name]), []),
             'tags' => $this->whenLoaded('tags', $this->loadTags(), []),
             'customer_feedbacks' => $this->whenLoaded('customerFeedbacks', $this->loadCustomerFeedbacks(), []),
-            'en' => $this->when($this->translate, [
-                'name' => $this->translate?->name,
-                'description' => $this->translate?->description,
-                'address' => $this->translate?->address,
-            ]),
             'related_rooms' => $this->when($relatedRooms, $relatedRooms),
         ];
     }
