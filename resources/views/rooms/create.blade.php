@@ -216,6 +216,11 @@
 
 @section('js')
 <script>
+    function convertCaseAsTitle(input) {
+        return input.replace(/\S+/g, function(word) {
+            return word.charAt(0).toUpperCase() + word.substr(1).toLowerCase();
+        });
+    }
     $(function () {
         const locations = JSON.parse('@json($locations)');
         // Summernote
@@ -225,10 +230,25 @@
         $('#unit').select2({
             theme: 'bootstrap4'
         });
+
         $('.service').select2({
             theme: 'bootstrap4',
-            tags: true
+            tags: true,
+            createTag: function (params) {
+                var term = $.trim(params.term);
+
+                if (term === '') {
+                    return null;
+                }
+
+                return {
+                    id: convertCaseAsTitle(term),
+                    text: convertCaseAsTitle(term),
+                    newTag: true // add additional parameters
+                }
+            }
         });
+
         $('#category').select2({
             theme: 'bootstrap4'
         })

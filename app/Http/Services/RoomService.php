@@ -17,7 +17,7 @@ use Spatie\ImageOptimizer\Optimizers\Jpegoptim;
 use Spatie\ImageOptimizer\Optimizers\Optipng;
 use Spatie\ImageOptimizer\Optimizers\Pngquant;
 use Spatie\Tags\Tag;
-
+use Illuminate\Support\Str;
 class RoomService implements RoomServiceContract
 {
     use ForwardCallToEloquentRepository, Location;
@@ -116,7 +116,10 @@ class RoomService implements RoomServiceContract
     public function getServiceRoomTags()
     {
         return Tag::whereIn('type', Tags::RoomService)
-        ->get()->groupBy('type');
+        ->get()->map(function ($item) {
+            $item->name = Str::title($item->name);
+            return $item;
+        })->groupBy('type');
     }
 
     public function getDependencyDataToCreateOrUpdate()

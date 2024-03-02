@@ -15,6 +15,8 @@ use DOMDocument;
 use DOMNodeList;
 use Illuminate\Database\Eloquent\Collection;
 use Spatie\Tags\Tag;
+use Illuminate\Support\Str;
+
 class BlogService implements BlogServiceContract {
 
     use ForwardCallToEloquentRepository;
@@ -103,7 +105,10 @@ class BlogService implements BlogServiceContract {
     public function getDependencyDataToCreateOrUpdate()
     {
         $categories = $this->categoryRepository->getCategoriesByType(TypeCategory::Blog, ['id', 'name']);
-        $tags = Tag::where('type', Tags::Blog)->get();
+        $tags = Tag::where('type', Tags::Blog)->get()->map(function ($item) {
+            $item->name = Str::title($item->name);
+            return $item;
+        });
 
         return compact('categories', 'tags');
     }
