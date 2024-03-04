@@ -60,7 +60,9 @@ class RoomResource extends JsonResource
         $tags = $this->tags->mapToGroups(fn ($item) => [$item->type => $item->name]);
         $tagKeys = Tags::fromValue(Tags::RoomService);
         foreach ($tagKeys->value as $key => $value) {
-           $result[$key] = $tags[$value];
+           $result[$key] = $tags[$value]->map(function ($item) {
+                return Str::title($item);
+           });
         }
 
         return $result;

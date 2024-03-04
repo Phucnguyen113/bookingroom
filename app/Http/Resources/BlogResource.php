@@ -39,11 +39,6 @@ class BlogResource extends JsonResource
                 'content' => $this->when($en, $blog->translate?->content, $blog->content),
                 'categories' => $blog->categories->map(fn ($item) => ['id' => $item->id, 'name' => $item->name]),
                 'thumbnail' => $blog->thumbnail?->getUrl(),
-                'en' => $this->when($blog->translate, [
-                    'title' => $blog->translate?->title,
-                    'description' => $blog->translate?->description,
-                    'content' => $blog->translate?->content,
-                ]),
                 'created_at' => $blog->created_at,
             ];
         });
