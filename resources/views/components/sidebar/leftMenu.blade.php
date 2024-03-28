@@ -99,4 +99,14 @@
     </a>
   </li>
 
+  <li class="nav-item">
+    <a href="{{request()->is('customer-messages') ? '#' : route('customer-messages.index')}}" class="nav-link {{request()->is('customer-messages*') ? 'active' : ''}}">
+      <i class="fas fa-comment-dots"></i>
+      <p>
+        Customer Message
+        <!-- <span class="right badge badge-danger">New</span> -->
+      </p>
+    </a>
+  </li>
+
 </ul>

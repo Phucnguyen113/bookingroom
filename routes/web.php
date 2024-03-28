@@ -4,6 +4,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerContactController;
 use App\Http\Controllers\CustomerFeedbackController;
+use App\Http\Controllers\CustomerMessageController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MediaController;
@@ -60,6 +61,8 @@ Route::group([
     });
 
     Route::delete('media/{media}', [MediaController::class, 'delete'])->name('delete-media');
+
+    Route::resource('customer-messages', CustomerMessageController::class);
 
     Route::post('mark-as-read', [NotificationController::class, 'markAsRead'])->name('mark-as-read');
 });

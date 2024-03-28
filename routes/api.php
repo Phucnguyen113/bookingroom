@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\CustomerContactController;
 use App\Http\Controllers\Api\CustomerFeedbackController;
+use App\Http\Controllers\Api\CustomerMessageController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\LocationController;
 use App\Http\Controllers\Api\MetaInfoController;
@@ -43,6 +44,8 @@ Route::get('home', [HomeController::class, 'index']);
 
 Route::get('locations', [LocationController::class, 'index']);
 Route::get('locations/{code}', [LocationController::class, 'search']);
+
+Route::get('customer-messages', [CustomerMessageController::class, 'index']);
 Route::get('link', function () {
     Artisan::call('storage:link');
 });
